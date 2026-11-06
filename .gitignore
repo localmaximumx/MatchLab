@@ -1,6 +1,26 @@
 # MatchLab Git Ignore
+
+# Raw and Large Binary Data
 data/raw/
+archive/
 *.db
-*.log
+*.sqlite
+*.sqlite3
+
+# Python Cache & Bytecode
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Logs & Virtual Environments
+*.log
+.venv/
+venv/
+ENV/
+env/
+
+# OS Artifacts
+.DS_Store
+Thumbs.db

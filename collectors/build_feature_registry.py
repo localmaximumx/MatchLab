@@ -12,7 +12,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 PROCESSED_DIR = os.path.join(DATA_DIR, "processed")
-REPORTS_DIR = os.path.join(BASE_DIR, "reports", "leakage_remediation")
+REPORTS_DIR = os.path.join(BASE_DIR, "reports", "data_integration")
 
 df = pd.read_parquet(os.path.join(PROCESSED_DIR, "matches_prematch_24h_features.parquet"))
 cols = df.columns.tolist()
