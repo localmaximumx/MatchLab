@@ -1,0 +1,23 @@
+competition_id,competition_name,season_name,total_matches,exact_kickoff_count,estimated_kickoff_count,pct_exact_kickoff,kickoff_time_source,prediction_cutoff_status,temporal_confidence_tier,recommended_action
+championship,EFL Championship,2016/2017,552,0,552,0.0,Synthetic Default (15:00 Weekend / 19:45 Weekday),Estimated (±2-5h Uncertainty),Tier 2 - Safe Under Documented Assumptions,Admissible under documented assumption or secondary quarantine
+championship,EFL Championship,2017/2018,552,0,552,0.0,Synthetic Default (15:00 Weekend / 19:45 Weekday),Estimated (±2-5h Uncertainty),Tier 2 - Safe Under Documented Assumptions,Admissible under documented assumption or secondary quarantine
+championship,EFL Championship,2018/2019,552,0,552,0.0,Synthetic Default (15:00 Weekend / 19:45 Weekday),Estimated (±2-5h Uncertainty),Tier 2 - Safe Under Documented Assumptions,Admissible under documented assumption or secondary quarantine
+championship,EFL Championship,2019/2020,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2020/2021,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2021/2022,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2022/2023,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2023/2024,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2024/2025,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2025/2026,552,552,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+championship,EFL Championship,2026/2027,168,168,0,100.0,Football-Data.co.uk Recorded Match Times,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2016/2017,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2017/2018,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2018/2019,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2019/2020,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2020/2021,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2021/2022,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2022/2023,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2023/2024,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2024/2025,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2025/2026,380,380,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
+premier-league,Premier League,2026/2027,90,90,0,100.0,Football-Data.co.uk + FPL Official UTC Feeds,Verified Exact,Tier 1 - Verified Exact,Approved for 24h Pre-Match ML Training
