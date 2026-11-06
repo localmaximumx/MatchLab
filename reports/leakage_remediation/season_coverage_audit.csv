@@ -1,0 +1,23 @@
+competition_id,competition_name,season_name,total_matches,tier1_matches,tier2_matches,quarantined_matches,exact_kickoff_pct,kickoff_time_source,reconciliation_status,reconciliation_notes
+championship,EFL Championship,2016/2017,552,0,552,0,0.0,synthetic_default_1500_1945,RECONCILED,Time column omitted in Football-Data. Day-of-week heuristic (15:00 weekend / 19:45 weekday). Turnaround >=52.8h prevents rolling leakage.
+championship,EFL Championship,2017/2018,552,0,552,0,0.0,synthetic_default_1500_1945,RECONCILED,Time column omitted in Football-Data. Day-of-week heuristic (15:00 weekend / 19:45 weekday). Turnaround >=52.8h prevents rolling leakage.
+championship,EFL Championship,2018/2019,552,0,552,0,0.0,synthetic_default_1500_1945,RECONCILED,Time column omitted in Football-Data. Day-of-week heuristic (15:00 weekend / 19:45 weekday). Turnaround >=52.8h prevents rolling leakage.
+championship,EFL Championship,2019/2020,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2020/2021,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2021/2022,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2022/2023,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2023/2024,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2024/2025,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2025/2026,552,552,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+championship,EFL Championship,2026/2027,168,168,0,0,100.0,football_data_recorded,RECONCILED,100% recorded kickoff times from Football-Data.co.uk. Verified exact.
+premier-league,Premier League,2016/2017,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2017/2018,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2018/2019,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2019/2020,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2020/2021,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2021/2022,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2022/2023,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2023/2024,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2024/2025,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2025/2026,380,380,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.
+premier-league,Premier League,2026/2027,90,90,0,0,100.0,fpl_official_utc,RECONCILED,100% verified exact UTC kickoffs from official FPL + Football-Data feeds. Zero estimation.

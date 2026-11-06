@@ -1,0 +1,12 @@
+test_id,audit_domain,test_description,records_checked,failures_detected,status,evidence_and_details
+INT_01,Match Count Reconciliation,"Verify PL (3,890) + Championship (5,688) == 9,578 total matches",9578,0,PASS,"Master dataset contains exactly 9,578 matches (3,890 Premier League + 5,688 Championship)."
+INT_02,Tier Partition Reconciliation,"Verify Tier 1 (7,922) + Tier 2 (1,656) == 9,578 exactly",9578,0,PASS,"Tier 1 = 7,922 (100% PL + 2019+ Champ); Tier 2 = 1,656 (2016-18 Champ); Sum = 9,578."
+INT_03,Entity Identity Integrity,Verify zero duplicate match_id occurrences in master dataset,9578,0,PASS,Every match has a canonical unique identifier; exactly 0 duplicates found.
+INT_04,Storage Artifact Synchronization,"Verify Parquet, CSV, and SQLite have identical row & column counts",9578,0,PASS,"Master (9,578x161) and Tier 1 (7,922x161) identical across Parquet, CSV, and SQLite table/view."
+INT_05,Manual Odds Imputation Audit,Verify inferred Bet365 odds for Match 2450 is excluded (set to NaN),1,0,PASS,Match 2450 b365_home_open and implied probabilities are strictly NaN in feature columns.
+INT_06,Elo Probabilities Calibration,Verify pre-match Elo win/draw/loss probabilities sum to 1.000,9578,0,PASS,"All 9,578 matches have Elo probabilities summing to 1.0 (violations: 0)."
+INT_07,Betting Odds Probability Normalization,Verify Bet365 normalized implied probabilities sum to 1.000,9577,0,PASS,"Audited 9,577 valid Bet365 matches; all normalized probabilities sum to 1.0 (violations: 0)."
+INT_08,Temporal Boundary Anchor,Verify prediction_cutoff == kickoff_timestamp - 24.000 hours,9578,0,PASS,Every fixture strictly enforces prediction_cutoff = kickoff - 24.0h (violations: 0).
+INT_09,Historical Turnaround Precedence,Verify rest_days > 0 for all matches with historical appearances,9550,0,PASS,"Audited 9,550 non-opening fixtures; minimum rest days is 1.9d (violations: 0)."
+INT_10,Player Feature League Quarantine,Verify Championship matches have 100% clean NaN player features,9578,0,PASS,"Championship fixtures (5,688 matches) have exactly 0 non-null player values (violations: 0)."
+INT_11,Leakage Segregation Invariant,Verify raw in-match box scores are quarantined under benchmark_*,9578,0,PASS,Zero unquarantined in-match statistics exist in feature columns (unquarantined cols: []).
