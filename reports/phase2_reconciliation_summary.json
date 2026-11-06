@@ -1,0 +1,104 @@
+{
+  "premier_league": {
+    "tier": 1,
+    "division": "E0",
+    "competition": "Premier League",
+    "elvidge_matches": 12794,
+    "football_data_matches": 12794,
+    "both_matched": 12794,
+    "elvidge_only": 0,
+    "football_data_only": 0,
+    "score_identical_count": 12794,
+    "score_identical_pct": 100.0,
+    "discrepancies_count": 0,
+    "features_coverage": {
+      "pre_match_elo": 12794,
+      "shots": 9970,
+      "shots_on_target": 9970,
+      "corners": 9970,
+      "fouls": 9970,
+      "cards": 9970,
+      "b365_odds": 9210,
+      "pinnacle_odds": 5150,
+      "pinnacle_closing_odds": 5150
+    },
+    "discrepancies_sample": []
+  },
+  "championship": {
+    "tier": 2,
+    "division": "E1",
+    "competition": "Championship",
+    "elvidge_matches": 18384,
+    "football_data_matches": 18384,
+    "both_matched": 18384,
+    "elvidge_only": 0,
+    "football_data_only": 0,
+    "score_identical_count": 18379,
+    "score_identical_pct": 99.973,
+    "discrepancies_count": 5,
+    "features_coverage": {
+      "pre_match_elo": 18384,
+      "shots": 14519,
+      "shots_on_target": 14519,
+      "corners": 14519,
+      "fouls": 14519,
+      "cards": 14519,
+      "b365_odds": 13410,
+      "pinnacle_odds": 7433,
+      "pinnacle_closing_odds": 7445
+    },
+    "discrepancies_sample": [
+      {
+        "tier": 2,
+        "season": "1994/1995",
+        "date_elv": "1994-08-31",
+        "date_fd": "1995-03-19",
+        "home_team": "Swindon Town",
+        "away_team": "West Bromwich Albion",
+        "elvidge_score": "0-0",
+        "football_data_score": "5-2"
+      },
+      {
+        "tier": 2,
+        "season": "1994/1995",
+        "date_elv": "1995-03-19",
+        "date_fd": "1994-08-31",
+        "home_team": "West Bromwich Albion",
+        "away_team": "Swindon Town",
+        "elvidge_score": "2-5",
+        "football_data_score": "0-0"
+      },
+      {
+        "tier": 2,
+        "season": "1995/1996",
+        "date_elv": "1996-02-24",
+        "date_fd": "1996-02-24",
+        "home_team": "Huddersfield Town",
+        "away_team": "Crystal Palace",
+        "elvidge_score": "3-0",
+        "football_data_score": "2-0"
+      },
+      {
+        "tier": 2,
+        "season": "1996/1997",
+        "date_elv": "1997-04-16",
+        "date_fd": "1997-04-16",
+        "home_team": "Manchester City",
+        "away_team": "Grimsby Town",
+        "elvidge_score": "3-1",
+        "football_data_score": "3-0"
+      },
+      {
+        "tier": 2,
+        "season": "1996/1997",
+        "date_elv": "1997-03-28",
+        "date_fd": "1997-03-28",
+        "home_team": "Tranmere Rovers",
+        "away_team": "Southend United",
+        "elvidge_score": "3-0",
+        "football_data_score": "2-0"
+      }
+    ]
+  },
+  "total_reconciled_matches": 31178
+}

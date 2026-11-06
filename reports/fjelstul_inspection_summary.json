@@ -1,0 +1,1147 @@
+{
+  "files": [
+    {
+      "file": "appearances.csv",
+      "size_bytes": 62617300,
+      "size_mb": 59.72
+    },
+    {
+      "file": "matches.csv",
+      "size_bytes": 32807874,
+      "size_mb": 31.29
+    },
+    {
+      "file": "seasons.csv",
+      "size_bytes": 25464,
+      "size_mb": 0.02
+    },
+    {
+      "file": "standings.csv",
+      "size_bytes": 879077,
+      "size_mb": 0.84
+    },
+    {
+      "file": "teams.csv",
+      "size_bytes": 6118,
+      "size_mb": 0.01
+    }
+  ],
+  "codebook_variables": [
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 1,
+      "variable": "key_id",
+      "type": "integer",
+      "description": "The unique ID number for the observation."
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 2,
+      "variable": "season_id",
+      "type": "text",
+      "description": "The unique ID number for the season. Has the format {S-####-#}, where the first number is the year in which the season started, the second number is the tier. In the third tier, from the 1921-22 season through the 1957-58 season, there were North and South subdivisions. These are indicated by a {-N} or {-S} suffix."
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 3,
+      "variable": "season",
+      "type": "integer",
+      "description": "The year that the season started. "
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 4,
+      "variable": "tier",
+      "type": "integer",
+      "description": "The tier in English football. The possible values are {1} through {4}."
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 5,
+      "variable": "division",
+      "type": "text",
+      "description": "The division in English football. For the current league structure, the possible values are {Premier League}, {Championship}, {League One}, and {League Two}. For previous league structures, the possible values are {First Division}, {Second Division}, {Third Division}, and {Fourth Division}."
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 6,
+      "variable": "subdivision",
+      "type": "text",
+      "description": "The subdivision in English football. In the third tier, from the 1921-22 season through the 1957-58 season, there were North and South subdivisions. The possible values are {North}, {South}, and {None}. "
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 7,
+      "variable": "winner",
+      "type": "text",
+      "description": "The name of the team that won the league."
+    },
+    {
+      "dataset_id": 1,
+      "dataset": "seasons",
+      "variable_id": 8,
+      "variable": "count_teams",
+      "type": "integer",
+      "description": "The number of teams in the league (that actually played a match)."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 1,
+      "variable": "key_id",
+      "type": "integer",
+      "description": "The unique ID number for the observation."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 2,
+      "variable": "team_id",
+      "type": "text",
+      "description": "The unique ID number for the team. Has the format {T-###}, where the number is a counter that is assigned with the data sorted by the year of the team's first appearance in the Football League and then by the team's name."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 3,
+      "variable": "team_name",
+      "type": "text",
+      "description": "The current name of the team."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 4,
+      "variable": "former_team_names",
+      "type": "text",
+      "description": "The former names of the team, separated by a comma. Coded {None} for teams that have not changed their name."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 5,
+      "variable": "current",
+      "type": "boolean",
+      "description": "Whether the team currently competes in the English Football League or the Premier League. Coded {1} if the team currently competes in these leagues and {0} otherwise."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 6,
+      "variable": "former",
+      "type": "boolean",
+      "description": "Whether the team no longer competes in the English Football League or the Premier League (but still exists).  Coded {1} if the team is no longer in these leagues and {0} otherwise."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 7,
+      "variable": "defunct",
+      "type": "boolean",
+      "description": "Whether the team is defunct and no longer exists. Coded {1} if the team is defunct and {0} otherwise."
+    },
+    {
+      "dataset_id": 2,
+      "dataset": "teams",
+      "variable_id": 8,
+      "variable": "first_appearance",
+      "type": "integer",
+      "description": "The season that the team first competed in the Football League."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 1,
+      "variable": "key_id",
+      "type": "integer",
+      "description": "The unique ID number for the observation."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 2,
+      "variable": "season_id",
+      "type": "text",
+      "description": "The unique ID number for the season. References {season_id} in the {seasons} dataset."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 3,
+      "variable": "season",
+      "type": "integer",
+      "description": "The year that the season started. "
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 4,
+      "variable": "tier",
+      "type": "integer",
+      "description": "The tier in English football. The possible values are {1} through {4}."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 5,
+      "variable": "division",
+      "type": "test",
+      "description": "The division in English football. For the current league structure, the possible values are {Premier League}, {Championship}, {League One}, and {League Two}. For previous league structures, the possible values are {First Division}, {Second Division}, {Third Division}, and {Fourth Division}."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 6,
+      "variable": "subdivision",
+      "type": "test",
+      "description": "The subdivision in English football. In the third tier, from the 1921-22 season through the 1957-58 season, there were North and South subdivisions. The possible values are {North}, {South}, and {None}. "
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 7,
+      "variable": "match_id",
+      "type": "text",
+      "description": "The unique ID number for the match. Has the format {M-####-###}, where the first number is the season and second number is a within-season counter that is assigned with the data sorted by the name of the home team, then by the name of the away team."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 8,
+      "variable": "match_name",
+      "type": "text",
+      "description": "The name of the match."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 9,
+      "variable": "home_team_id",
+      "type": "text",
+      "description": "The unique ID number for the home team. References {team_id} in the {teams} dataset."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 10,
+      "variable": "home_team_name",
+      "type": "text",
+      "description": "The name of the home team. See the {teams} dataset."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 11,
+      "variable": "away_team_id",
+      "type": "text",
+      "description": "The unique ID number for the away team. References {team_id} in the {teams} dataset."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 12,
+      "variable": "away_team_name",
+      "type": "text",
+      "description": "The name of the away team. See the {teams} dataset."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 13,
+      "variable": "score",
+      "type": "text",
+      "description": "The score of the match in the format {#-#}, where the first number is the score of the home team and the second number is the score of the away team."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 14,
+      "variable": "home_team_score",
+      "type": "integer",
+      "description": "The score of the home team."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 15,
+      "variable": "away_team_score",
+      "type": "integer",
+      "description": "The score of the away team."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 16,
+      "variable": "home_team_score_margin",
+      "type": "integer",
+      "description": "The score margin for the home team."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 17,
+      "variable": "away_team_score_margin",
+      "type": "integer",
+      "description": "The score margin for the away team."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 18,
+      "variable": "result",
+      "type": "enum",
+      "description": "The result of the match. The possible values are {home team win}, {away team win}, and {draw}."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 19,
+      "variable": "home_team_win",
+      "type": "boolean",
+      "description": "Whether the home team won the match. Coded {1} if the home team won the match and {0} otherwise."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 20,
+      "variable": "away_team_win",
+      "type": "boolean",
+      "description": "Whether the away team won the match. Coded {1} if the away team won the match and {0} otherwise."
+    },
+    {
+      "dataset_id": 3,
+      "dataset": "matches",
+      "variable_id": 21,
+      "variable": "draw",
+      "type": "boolean",
+      "description": "Whether the match ended in a draw. Coded {1} of the match ended in a draw and {0} otherwise."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 1,
+      "variable": "key_id",
+      "type": "integer",
+      "description": "The unique ID number for the observation."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 2,
+      "variable": "season_id",
+      "type": "text",
+      "description": "The unique ID number for the season. References {season_id} in the {seasons} dataset."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 3,
+      "variable": "season",
+      "type": "integer",
+      "description": "The year that the season started. "
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 4,
+      "variable": "tier",
+      "type": "integer",
+      "description": "The tier in English football. The possible values are {1} through {4}."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 5,
+      "variable": "division",
+      "type": "test",
+      "description": "The division in English football. For the current league structure, the possible values are {Premier League}, {Championship}, {League One}, and {League Two}. For previous league structures, the possible values are {First Division}, {Second Division}, {Third Division}, and {Fourth Division}."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 6,
+      "variable": "subdivision",
+      "type": "test",
+      "description": "The subdivision in English football. In the third tier, from the 1921-22 season through the 1957-58 season, there were North and South subdivisions. The possible values are {North}, {South}, and {None}. "
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 7,
+      "variable": "match_id",
+      "type": "text",
+      "description": "The unique ID number for the match. References {match_id} in the {matches} dataset."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 8,
+      "variable": "match_name",
+      "type": "text",
+      "description": "The name of the match."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 9,
+      "variable": "team_id",
+      "type": "text",
+      "description": "The unique ID number for the team. References {team_id} in the {teams} dataset."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 10,
+      "variable": "team_name",
+      "type": "text",
+      "description": "The name of the team."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 11,
+      "variable": "opponent_id",
+      "type": "text",
+      "description": "The unique ID number for the team's opponent. References {team_id} in the {teams} dataset."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 12,
+      "variable": "opponent_name",
+      "type": "text",
+      "description": "The name of the team's opponent."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 13,
+      "variable": "home_team",
+      "type": "boolean",
+      "description": "Whether the team was the home team. Coded {1} if the team was the home team and {0} otherwise."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 14,
+      "variable": "away_team",
+      "type": "boolean",
+      "description": "Whether the team was the away team. Coded {1} if the team was the away team and {0} otherwise."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 15,
+      "variable": "goals_for",
+      "type": "integer",
+      "description": "The number of goals scored by the team."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 16,
+      "variable": "goals_against",
+      "type": "integer",
+      "description": "The number of goals scored against the team."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 17,
+      "variable": "goal_difference",
+      "type": "integer",
+      "description": "The team's goal difference."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 18,
+      "variable": "result",
+      "type": "enum",
+      "description": "The result of the match. The possible values are {home team win}, {away team win}, and {draw}."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 19,
+      "variable": "win",
+      "type": "boolean",
+      "description": "Whether the team won the match. Coded {1} if the team won the match and {0} otherwise."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 20,
+      "variable": "lose",
+      "type": "boolean",
+      "description": "Whether the team lost the match. Coded {1} if the team lost the match and {0} otherwise."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 21,
+      "variable": "draw",
+      "type": "boolean",
+      "description": "Whether the match ended in a draw. Coded {1} of the match ended in a draw and {0} otherwise."
+    },
+    {
+      "dataset_id": 4,
+      "dataset": "appearances",
+      "variable_id": 22,
+      "variable": "points",
+      "type": "integer",
+      "description": "The number of points the team earned from the match. A team earns {0} points for a loss and {1} point for a draw. From the 1888-89 season through the 1980-81 season, teams earned {2} points for a win. Starting with the 1981-82 season, teams have earned {3} points for a win."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 1,
+      "variable": "key_id",
+      "type": "integer",
+      "description": "The unique ID number for the observation."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 2,
+      "variable": "season_id",
+      "type": "text",
+      "description": "The unique ID number for the season. References {season_id} in the {seasons} dataset."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 3,
+      "variable": "season",
+      "type": "integer",
+      "description": "The year that the season started. "
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 4,
+      "variable": "tier",
+      "type": "integer",
+      "description": "The tier in English football. The possible values are {1} through {4}."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 5,
+      "variable": "division",
+      "type": "test",
+      "description": "The division in English football. For the current league structure, the possible values are {Premier League}, {Championship}, {League One}, and {League Two}. For previous league structures, the possible values are {First Division}, {Second Division}, {Third Division}, and {Fourth Division}."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 6,
+      "variable": "subdivision",
+      "type": "test",
+      "description": "The subdivision in English football. In the third tier, from the 1921-22 season through the 1957-58 season, there were North and South subdivisions. The possible values are {North}, {South}, and {None}. "
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 7,
+      "variable": "position",
+      "type": "integer",
+      "description": "The team's final position in the league."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 8,
+      "variable": "team_id",
+      "type": "text",
+      "description": "The unique ID number for the team. References {team_id} in the {teams} dataset."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 9,
+      "variable": "team_name",
+      "type": "text",
+      "description": "The name of the team."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 10,
+      "variable": "played",
+      "type": "integer",
+      "description": "The number of matches that the team played."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 11,
+      "variable": "wins",
+      "type": "integer",
+      "description": "The number of matches that the team won."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 12,
+      "variable": "draws",
+      "type": "integer",
+      "description": "The number of matches that the team drew."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 13,
+      "variable": "losses",
+      "type": "integer",
+      "description": "The number of matches that the team lost."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 14,
+      "variable": "goals_for",
+      "type": "integer",
+      "description": "The number of goals scored by the team."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 15,
+      "variable": "goals_against",
+      "type": "integer",
+      "description": "The number of goals scored against the team."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 16,
+      "variable": "goal_difference",
+      "type": "integer",
+      "description": "The team's goal difference."
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 17,
+      "variable": "points",
+      "type": "integer",
+      "description": "The number of points that the team earned over the whole season (after any point adjustments). "
+    },
+    {
+      "dataset_id": 5,
+      "dataset": "standings",
+      "variable_id": 18,
+      "variable": "point_adjustment",
+      "type": "integer",
+      "description": "The number of points that were deducted by the league due to violations of league rules or added by the league due to forfeits."
+    }
+  ],
+  "tables": {
+    "seasons": {
+      "row_count": 439,
+      "column_count": 8,
+      "columns": [
+        "key_id",
+        "season_id",
+        "season",
+        "tier",
+        "division",
+        "subdivision",
+        "winner",
+        "count_teams"
+      ],
+      "dtypes": {
+        "key_id": "int64",
+        "season_id": "str",
+        "season": "int64",
+        "tier": "int64",
+        "division": "str",
+        "subdivision": "str",
+        "winner": "str",
+        "count_teams": "int64"
+      },
+      "pk": [
+        "season_id"
+      ],
+      "pk_duplicates": 0,
+      "exact_duplicates": 0,
+      "missing_values": {
+        "subdivision": {
+          "null_count": 379,
+          "null_pct": 86.333
+        }
+      },
+      "sample_head": [
+        {
+          "key_id": 1,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "winner": "Preston North End",
+          "count_teams": 12
+        },
+        {
+          "key_id": 2,
+          "season_id": "S-1889-1",
+          "season": 1889,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "winner": "Preston North End",
+          "count_teams": 12
+        }
+      ]
+    },
+    "teams": {
+      "row_count": 144,
+      "column_count": 8,
+      "columns": [
+        "key_id",
+        "team_id",
+        "team_name",
+        "former_team_names",
+        "current",
+        "former",
+        "defunct",
+        "first_appearance"
+      ],
+      "dtypes": {
+        "key_id": "int64",
+        "team_id": "str",
+        "team_name": "str",
+        "former_team_names": "str",
+        "current": "int64",
+        "former": "int64",
+        "defunct": "int64",
+        "first_appearance": "int64"
+      },
+      "pk": [
+        "team_id"
+      ],
+      "pk_duplicates": 0,
+      "exact_duplicates": 0,
+      "missing_values": {
+        "former_team_names": {
+          "null_count": 126,
+          "null_pct": 87.5
+        }
+      },
+      "sample_head": [
+        {
+          "key_id": 1,
+          "team_id": "T-001",
+          "team_name": "Accrington",
+          "former_team_names": NaN,
+          "current": 0,
+          "former": 0,
+          "defunct": 1,
+          "first_appearance": 1888
+        },
+        {
+          "key_id": 2,
+          "team_id": "T-002",
+          "team_name": "Aston Villa",
+          "former_team_names": NaN,
+          "current": 1,
+          "former": 0,
+          "defunct": 0,
+          "first_appearance": 1888
+        }
+      ]
+    },
+    "matches": {
+      "row_count": 208028,
+      "column_count": 21,
+      "columns": [
+        "key_id",
+        "season_id",
+        "season",
+        "tier",
+        "division",
+        "subdivision",
+        "match_id",
+        "match_name",
+        "home_team_id",
+        "home_team_name",
+        "away_team_id",
+        "away_team_name",
+        "score",
+        "home_team_score",
+        "away_team_score",
+        "home_team_score_margin",
+        "away_team_score_margin",
+        "result",
+        "home_team_win",
+        "away_team_win",
+        "draw"
+      ],
+      "dtypes": {
+        "key_id": "int64",
+        "season_id": "str",
+        "season": "int64",
+        "tier": "int64",
+        "division": "str",
+        "subdivision": "str",
+        "match_id": "str",
+        "match_name": "str",
+        "home_team_id": "str",
+        "home_team_name": "str",
+        "away_team_id": "str",
+        "away_team_name": "str",
+        "score": "str",
+        "home_team_score": "int64",
+        "away_team_score": "int64",
+        "home_team_score_margin": "int64",
+        "away_team_score_margin": "int64",
+        "result": "str",
+        "home_team_win": "int64",
+        "away_team_win": "int64",
+        "draw": "int64"
+      },
+      "pk": [
+        "match_id"
+      ],
+      "pk_duplicates": 0,
+      "exact_duplicates": 0,
+      "missing_values": {
+        "subdivision": {
+          "null_count": 179062,
+          "null_pct": 86.076
+        }
+      },
+      "sample_head": [
+        {
+          "key_id": 1,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "match_id": "M-1888-1-001",
+          "match_name": "Accrington vs Aston Villa",
+          "home_team_id": "T-001",
+          "home_team_name": "Accrington",
+          "away_team_id": "T-002",
+          "away_team_name": "Aston Villa",
+          "score": "1-1",
+          "home_team_score": 1,
+          "away_team_score": 1,
+          "home_team_score_margin": 0,
+          "away_team_score_margin": 0,
+          "result": "draw",
+          "home_team_win": 0,
+          "away_team_win": 0,
+          "draw": 1
+        },
+        {
+          "key_id": 2,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "match_id": "M-1888-1-002",
+          "match_name": "Accrington vs Blackburn Rovers",
+          "home_team_id": "T-001",
+          "home_team_name": "Accrington",
+          "away_team_id": "T-003",
+          "away_team_name": "Blackburn Rovers",
+          "score": "0-2",
+          "home_team_score": 0,
+          "away_team_score": 2,
+          "home_team_score_margin": -2,
+          "away_team_score_margin": 2,
+          "result": "away team win",
+          "home_team_win": 0,
+          "away_team_win": 1,
+          "draw": 0
+        }
+      ]
+    },
+    "appearances": {
+      "row_count": 416056,
+      "column_count": 22,
+      "columns": [
+        "key_id",
+        "season_id",
+        "season",
+        "tier",
+        "division",
+        "subdivision",
+        "match_id",
+        "match_name",
+        "team_id",
+        "team_name",
+        "opponent_id",
+        "opponent_name",
+        "home_team",
+        "away_team",
+        "goals_for",
+        "goals_against",
+        "goal_difference",
+        "result",
+        "win",
+        "lose",
+        "draw",
+        "points"
+      ],
+      "dtypes": {
+        "key_id": "int64",
+        "season_id": "str",
+        "season": "int64",
+        "tier": "int64",
+        "division": "str",
+        "subdivision": "str",
+        "match_id": "str",
+        "match_name": "str",
+        "team_id": "str",
+        "team_name": "str",
+        "opponent_id": "str",
+        "opponent_name": "str",
+        "home_team": "int64",
+        "away_team": "int64",
+        "goals_for": "int64",
+        "goals_against": "int64",
+        "goal_difference": "int64",
+        "result": "str",
+        "win": "int64",
+        "lose": "int64",
+        "draw": "int64",
+        "points": "int64"
+      },
+      "pk": [
+        "season_id",
+        "match_id",
+        "team_id"
+      ],
+      "pk_duplicates": 0,
+      "exact_duplicates": 0,
+      "missing_values": {
+        "subdivision": {
+          "null_count": 358124,
+          "null_pct": 86.076
+        }
+      },
+      "sample_head": [
+        {
+          "key_id": 1,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "match_id": "M-1888-1-001",
+          "match_name": "Accrington vs Aston Villa",
+          "team_id": "T-001",
+          "team_name": "Accrington",
+          "opponent_id": "T-002",
+          "opponent_name": "Aston Villa",
+          "home_team": 1,
+          "away_team": 0,
+          "goals_for": 1,
+          "goals_against": 1,
+          "goal_difference": 0,
+          "result": "draw",
+          "win": 0,
+          "lose": 0,
+          "draw": 1,
+          "points": 1
+        },
+        {
+          "key_id": 2,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "match_id": "M-1888-1-001",
+          "match_name": "Accrington vs Aston Villa",
+          "team_id": "T-002",
+          "team_name": "Aston Villa",
+          "opponent_id": "T-001",
+          "opponent_name": "Accrington",
+          "home_team": 0,
+          "away_team": 1,
+          "goals_for": 1,
+          "goals_against": 1,
+          "goal_difference": 0,
+          "result": "draw",
+          "win": 0,
+          "lose": 0,
+          "draw": 1,
+          "points": 1
+        }
+      ]
+    },
+    "standings": {
+      "row_count": 9740,
+      "column_count": 18,
+      "columns": [
+        "key_id",
+        "season_id",
+        "season",
+        "tier",
+        "division",
+        "subdivision",
+        "position",
+        "team_id",
+        "team_name",
+        "played",
+        "wins",
+        "draws",
+        "losses",
+        "goals_for",
+        "goals_against",
+        "goal_difference",
+        "points",
+        "point_adjustment"
+      ],
+      "dtypes": {
+        "key_id": "int64",
+        "season_id": "str",
+        "season": "int64",
+        "tier": "int64",
+        "division": "str",
+        "subdivision": "str",
+        "position": "int64",
+        "team_id": "str",
+        "team_name": "str",
+        "played": "int64",
+        "wins": "int64",
+        "draws": "int64",
+        "losses": "int64",
+        "goals_for": "int64",
+        "goals_against": "int64",
+        "goal_difference": "int64",
+        "points": "int64",
+        "point_adjustment": "int64"
+      },
+      "pk": [
+        "season_id",
+        "team_id"
+      ],
+      "pk_duplicates": 0,
+      "exact_duplicates": 0,
+      "missing_values": {
+        "subdivision": {
+          "null_count": 8392,
+          "null_pct": 86.16
+        }
+      },
+      "sample_head": [
+        {
+          "key_id": 1,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "position": 1,
+          "team_id": "T-009",
+          "team_name": "Preston North End",
+          "played": 22,
+          "wins": 18,
+          "draws": 4,
+          "losses": 0,
+          "goals_for": 74,
+          "goals_against": 15,
+          "goal_difference": 59,
+          "points": 40,
+          "point_adjustment": 0
+        },
+        {
+          "key_id": 2,
+          "season_id": "S-1888-1",
+          "season": 1888,
+          "tier": 1,
+          "division": "First Division",
+          "subdivision": NaN,
+          "position": 2,
+          "team_id": "T-002",
+          "team_name": "Aston Villa",
+          "played": 22,
+          "wins": 12,
+          "draws": 5,
+          "losses": 5,
+          "goals_for": 61,
+          "goals_against": 43,
+          "goal_difference": 18,
+          "points": 29,
+          "point_adjustment": 0
+        }
+      ]
+    }
+  },
+  "season_range": {
+    "min_season": 1888,
+    "max_season": 2023,
+    "total_seasons_listed": 439,
+    "unique_years": 125
+  },
+  "matches_by_tier": {
+    "1": 50570,
+    "2": 55804,
+    "3": 65708,
+    "4": 35946
+  },
+  "matches_by_division": {
+    "Third Division": 54550,
+    "First Division": 44788,
+    "Second Division": 44764,
+    "Fourth Division": 18664,
+    "Premier League": 12406,
+    "Championship": 11040,
+    "League Two": 10928,
+    "League One": 10888
+  },
+  "tier1_total_matches": 50570,
+  "tier2_total_matches": 55804,
+  "pl_matches_count": 12406,
+  "pl_seasons_count": 32,
+  "pl_season_min": 1992,
+  "pl_season_max": 2023,
+  "tier2_seasons_count": 121,
+  "tier2_season_min": 1892,
+  "tier2_season_max": 2023,
+  "pl_recent_matches_per_season": {
+    "2014": 380,
+    "2015": 380,
+    "2016": 380,
+    "2017": 380,
+    "2018": 380,
+    "2019": 380,
+    "2020": 380,
+    "2021": 380,
+    "2022": 380,
+    "2023": 380
+  },
+  "date_columns": [],
+  "matches_stats": {
+    "total_matches": 208028,
+    "total_goals": 594974,
+    "avg_home_goals": 1.742,
+    "avg_away_goals": 1.119,
+    "home_win_rate": 0.5037,
+    "away_win_rate": 0.2436,
+    "draw_rate": 0.2527,
+    "max_home_score": 13,
+    "max_away_score": 10,
+    "negative_scores": 0
+  },
+  "teams_stats": {
+    "total_teams": 144,
+    "current_count": 92,
+    "former_count": 26,
+    "defunct_count": 26
+  }
+}

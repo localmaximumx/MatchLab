@@ -1,0 +1,123 @@
+{
+  "status": "PASSED",
+  "matches_count": 9578,
+  "player_records_count": 257783,
+  "seasons_count": 11,
+  "seasons_list": [
+    "2016/2017",
+    "2017/2018",
+    "2018/2019",
+    "2019/2020",
+    "2020/2021",
+    "2021/2022",
+    "2022/2023",
+    "2023/2024",
+    "2024/2025",
+    "2025/2026",
+    "2026/2027"
+  ],
+  "competitions": {
+    "EFL Championship": 5688,
+    "Premier League": 3890
+  },
+  "integrity_checks": {
+    "null_goals": 0,
+    "null_results": 0,
+    "invalid_results": 0,
+    "score_consistency_pass": true,
+    "chronological_order_verified": true,
+    "earliest_date": "2016-08-05",
+    "latest_date": "2026-11-04",
+    "elo_prob_sum_mean": 1.0
+  },
+  "feature_completeness": {
+    "home_shots": {
+      "label": "Match Shots",
+      "non_null_count": 9577,
+      "percentage": 99.99
+    },
+    "home_shots_on_target": {
+      "label": "Shots on Target",
+      "non_null_count": 9577,
+      "percentage": 99.99
+    },
+    "home_corners": {
+      "label": "Corners",
+      "non_null_count": 9577,
+      "percentage": 99.99
+    },
+    "home_yellow_cards": {
+      "label": "Cards",
+      "non_null_count": 9577,
+      "percentage": 99.99
+    },
+    "home_elo_before": {
+      "label": "Pre-Match Elo Rating",
+      "non_null_count": 9578,
+      "percentage": 100.0
+    },
+    "elo_home_win_prob": {
+      "label": "Elo Win Probabilities",
+      "non_null_count": 9578,
+      "percentage": 100.0
+    },
+    "b365_home": {
+      "label": "Bet365 Opening Odds",
+      "non_null_count": 9578,
+      "percentage": 100.0
+    },
+    "b365_implied_home_prob": {
+      "label": "Bet365 Implied Probabilities",
+      "non_null_count": 9577,
+      "percentage": 99.99
+    },
+    "pinnacle_home": {
+      "label": "Pinnacle Opening Odds",
+      "non_null_count": 8855,
+      "percentage": 92.45
+    },
+    "pinnacle_close_home": {
+      "label": "Pinnacle Closing Odds",
+      "non_null_count": 8867,
+      "percentage": 92.58
+    },
+    "market_avg_home": {
+      "label": "Market Average Odds",
+      "non_null_count": 6782,
+      "percentage": 70.81
+    },
+    "market_avg_over_2_5": {
+      "label": "Over/Under 2.5 Market Odds",
+      "non_null_count": 6782,
+      "percentage": 70.81
+    },
+    "asian_handicap_line": {
+      "label": "Asian Handicap Line",
+      "non_null_count": 6781,
+      "percentage": 70.8
+    }
+  },
+  "market_metrics": {
+    "b365_mean_vig_pct": 4.89,
+    "b365_min_vig_pct": 1.69,
+    "b365_max_vig_pct": 16.67,
+    "pinnacle_mean_vig_pct": 2.97,
+    "pinnacle_close_mean_vig_pct": 2.72
+  },
+  "player_highlights": {
+    "top_scorers": {
+      "Mohamed Salah": 118,
+      "Erling Haaland": 118,
+      "Ollie Watkins": 91,
+      "Harry Kane": 70,
+      "Jarrod Bowen": 64,
+      "Phil Foden": 62,
+      "Bukayo Saka": 62,
+      "Alexander Isak": 61,
+      "Harry_Kane": 58,
+      "Chris Wood": 57
+    },
+    "mean_home_lineup_value_m": 77.9,
+    "mean_away_lineup_value_m": 77.9
+  }
+}

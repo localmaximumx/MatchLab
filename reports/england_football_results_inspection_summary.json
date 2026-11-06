@@ -1,0 +1,144 @@
+{
+  "dataset_name": "Sean Elvidge England Football Results",
+  "repository": "https://github.com/seanelvidge/England-football-results",
+  "license": "CC BY 4.0",
+  "files": {
+    ".gitignore": {
+      "size_mb": 0.0,
+      "size_bytes": 398
+    },
+    "EnglandLeagueNames.csv": {
+      "size_mb": 0.001,
+      "size_bytes": 747
+    },
+    "EnglandLeagueResults.csv": {
+      "size_mb": 18.444,
+      "size_bytes": 19340039
+    },
+    "EnglandLeagueResults_wRanks.csv": {
+      "size_mb": 31.2,
+      "size_bytes": 32715622
+    },
+    "EnglishTeamActivePeriods.csv": {
+      "size_mb": 0.006,
+      "size_bytes": 5918
+    },
+    "EnglishTeamLogos.csv": {
+      "size_mb": 0.015,
+      "size_bytes": 15628
+    },
+    "EnglishTeamNamePeriods.csv": {
+      "size_mb": 0.023,
+      "size_bytes": 24603
+    },
+    "EnglishTeamPointDeductions.csv": {
+      "size_mb": 0.009,
+      "size_bytes": 9760
+    },
+    "LICENCE.md": {
+      "size_mb": 0.021,
+      "size_bytes": 21973
+    },
+    "README.md": {
+      "size_mb": 0.015,
+      "size_bytes": 15569
+    }
+  },
+  "total_matches_all_tiers": 212808,
+  "total_matches_w_ranks": 212808,
+  "seasons_range": [
+    "1888/1889",
+    "2026/2027"
+  ],
+  "total_seasons": 129,
+  "tiers_breakdown": {
+    "1": 51453,
+    "2": 57108,
+    "3": 67033,
+    "4": 37214
+  },
+  "pl_matches_total": 13256,
+  "tier2_matches_total": 57108,
+  "tier2_matches_1992_present": 18936,
+  "champ_matches_2004_present": 12312,
+  "columns_base": [
+    "Date",
+    "Season",
+    "HomeTeam",
+    "AwayTeam",
+    "Score",
+    "hGoal",
+    "aGoal",
+    "Division",
+    "Tier",
+    "Result"
+  ],
+  "extra_columns_in_ranks": [
+    "HomeRank_before",
+    "AwayRank_before",
+    "HomeRank_after",
+    "AwayRank_after",
+    "HomeWinProbability",
+    "DrawProbability",
+    "AwayWinProbability"
+  ],
+  "null_counts": {
+    "Date": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    },
+    "Season": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    },
+    "HomeTeam": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    },
+    "AwayTeam": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    },
+    "Score": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    },
+    "hGoal": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "int64"
+    },
+    "aGoal": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "int64"
+    },
+    "Division": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    },
+    "Tier": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "int64"
+    },
+    "Result": {
+      "null_count": 0,
+      "null_pct": 0.0,
+      "dtype": "str"
+    }
+  },
+  "team_point_deductions_count": 85,
+  "team_name_periods_count": 278,
+  "fjelstul_cross_check": {
+    "fjelstul_pl_1992_2023": 12406,
+    "elvidge_pl_1992_2023": 12406,
+    "difference": 0
+  }
+}

@@ -1,0 +1,6 @@
+# MatchLab Git Ignore
+data/raw/
+*.db
+*.log
+__pycache__/
+*.pyc

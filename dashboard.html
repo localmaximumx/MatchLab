@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchLab — Football Analytics & Data Quality Dashboard</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --bg-main: #0B0F19;
+      --bg-card: #151D2F;
+      --bg-card-subtle: #1E293B;
+      --border-subtle: #2D3A54;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent-blue: #38BDF8;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-rose: #F43F5E;
+      --accent-purple: #A855F7;
+    }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .tab-btn.active {
+      background-color: #2563EB;
+      color: #FFFFFF;
+      font-weight: 600;
+      border-color: #3B82F6;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen p-4 md:p-8">
+
+  <!-- Header Banner -->
+  <header class="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row md:items-center md:justify-between border-b border-[#2D3A54] pb-6 gap-4">
+    <div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 font-bold text-xl text-white shadow-lg shadow-blue-500/20">⚽</span>
+        <div>
+          <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
+            MatchLab Intelligence Dashboard
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Phase 4 Complete</span>
+          </h1>
+          <p class="text-sm text-slate-400 mt-0.5">
+            Modern English Football Master Dataset (2016/17 – 2026/27) • Premier League & EFL Championship
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="text-right">
+        <div class="text-xs text-slate-400 font-medium">Dataset Verification Status</div>
+        <div class="text-sm font-bold text-emerald-400 flex items-center justify-end gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          100% Core Integrity (0 Nulls)
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top KPI Grid -->
+  <section class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4 shadow-sm">
+      <div class="text-xs text-slate-400 font-medium">Total Matches</div>
+      <div class="text-2xl font-black text-white mt-1">9,578</div>
+      <div class="text-[11px] text-blue-400 mt-1">11 Modern Seasons</div>
+    </div>
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4 shadow-sm">
+      <div class="text-xs text-slate-400 font-medium">Competitions</div>
+      <div class="text-2xl font-black text-white mt-1">2 Tiers</div>
+      <div class="text-[11px] text-slate-400 mt-1">3,890 PL • 5,688 Champ</div>
+    </div>
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4 shadow-sm">
+      <div class="text-xs text-slate-400 font-medium">Player Records</div>
+      <div class="text-2xl font-black text-emerald-400 mt-1">257,783</div>
+      <div class="text-[11px] text-slate-400 mt-1">4,490 Unique Players</div>
+    </div>
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4 shadow-sm">
+      <div class="text-xs text-slate-400 font-medium">Bet365 Opening Vig</div>
+      <div class="text-2xl font-black text-amber-400 mt-1">4.89%</div>
+      <div class="text-[11px] text-slate-400 mt-1">100% Coverage</div>
+    </div>
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4 shadow-sm">
+      <div class="text-xs text-slate-400 font-medium">Pinnacle Closing Vig</div>
+      <div class="text-2xl font-black text-blue-400 mt-1">2.72%</div>
+      <div class="text-[11px] text-slate-400 mt-1">92.6% Sharp Benchmark</div>
+    </div>
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4 shadow-sm">
+      <div class="text-xs text-slate-400 font-medium">Predictive Sharpness</div>
+      <div class="text-2xl font-black text-purple-400 mt-1">0.2196</div>
+      <div class="text-[11px] text-slate-400 mt-1">Closing Line Brier Score</div>
+    </div>
+  </section>
+
+  <!-- Interactive Navigation Tabs -->
+  <div class="max-w-7xl mx-auto mb-6 flex flex-wrap gap-2 border-b border-[#2D3A54] pb-4">
+    <button onclick="switchTab('tab-overview')" id="btn-tab-overview" class="tab-btn active px-4 py-2 rounded-lg text-xs md:text-sm border border-transparent transition-all">
+      📊 1. Macro Overview & Outlier EDA
+    </button>
+    <button onclick="switchTab('tab-goals')" id="btn-tab-goals" class="tab-btn px-4 py-2 rounded-lg text-xs md:text-sm border border-[#2D3A54] bg-[#151D2F] text-slate-300 hover:bg-[#1E293B] transition-all">
+      ⚽ 2. Goals & Betting Markets
+    </button>
+    <button onclick="switchTab('tab-stats')" id="btn-tab-stats" class="tab-btn px-4 py-2 rounded-lg text-xs md:text-sm border border-[#2D3A54] bg-[#151D2F] text-slate-300 hover:bg-[#1E293B] transition-all">
+      🎯 3. Box-Scores & Conversion
+    </button>
+    <button onclick="switchTab('tab-elo')" id="btn-tab-elo" class="tab-btn px-4 py-2 rounded-lg text-xs md:text-sm border border-[#2D3A54] bg-[#151D2F] text-slate-300 hover:bg-[#1E293B] transition-all">
+      📈 4. Elo Calibration & Bookmakers
+    </button>
+    <button onclick="switchTab('tab-player')" id="btn-tab-player" class="tab-btn px-4 py-2 rounded-lg text-xs md:text-sm border border-[#2D3A54] bg-[#151D2F] text-slate-300 hover:bg-[#1E293B] transition-all">
+      🏃 5. Player Intelligence Laboratory
+    </button>
+    <button onclick="switchTab('tab-audit')" id="btn-tab-audit" class="tab-btn px-4 py-2 rounded-lg text-xs md:text-sm border border-[#2D3A54] bg-[#151D2F] text-slate-300 hover:bg-[#1E293B] transition-all">
+      🛡️ 6. Quality & Leakage Audit Matrix
+    </button>
+  </div>
+
+  <!-- TAB 1: MACRO OVERVIEW & SEASONS -->
+  <main id="tab-overview" class="max-w-7xl mx-auto space-y-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 1X2 Outcome Distribution -->
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center justify-between">
+          1X2 Outcome Equilibrium
+          <span class="text-xs text-slate-400 font-normal">9,578 matches</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">Historical home advantage in modern English football.</p>
+        
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-semibold text-blue-400">Home Wins (H)</span>
+              <span class="font-mono text-white">4,201 (43.86%)</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-blue-500 h-2.5 rounded-full" style="width: 43.86%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-semibold text-amber-400">Draws (D)</span>
+              <span class="font-mono text-white">2,399 (25.05%)</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-amber-500 h-2.5 rounded-full" style="width: 25.05%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-semibold text-rose-400">Away Wins (A)</span>
+              <span class="font-mono text-white">2,978 (31.09%)</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-rose-500 h-2.5 rounded-full" style="width: 31.09%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 p-3 rounded-lg bg-[#1E293B] border border-[#2D3A54]/60 text-xs text-slate-300">
+          <span class="font-bold text-blue-300">💡 Machine Learning Takeaway:</span> A baseline model that naively guesses "Home Win" achieves 43.86% accuracy, but suffers negative expected value (-EV) against retail bookmakers due to the 4.89% margin. Our models must beat the market-implied odds, not raw accuracy.
+        </div>
+      </div>
+
+      <!-- Tier 1 vs Tier 2 Goal Environments -->
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm lg:col-span-2">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center justify-between">
+          Goal Scoring Regimes: Premier League vs Championship
+          <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">Statistically Significant Gap (p < 1e-12)</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">Comparison of goals per match across the 11-season observation window.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="p-4 rounded-xl bg-[#1E293B] border border-[#2D3A54]">
+            <div class="text-xs text-slate-400">Premier League (Tier 1)</div>
+            <div class="text-3xl font-black text-emerald-400 mt-1">2.832</div>
+            <div class="text-xs text-slate-400 mt-1">Goals per match (11,017 total goals)</div>
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              High-pressing, elite finishing environment
+            </div>
+          </div>
+          <div class="p-4 rounded-xl bg-[#1E293B] border border-[#2D3A54]">
+            <div class="text-xs text-slate-400">EFL Championship (Tier 2)</div>
+            <div class="text-3xl font-black text-amber-400 mt-1">2.557</div>
+            <div class="text-xs text-slate-400 mt-1">Goals per match (14,545 total goals)</div>
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              Physical, defensive, congested schedule (46 games/yr)
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-lg bg-slate-900 border border-[#2D3A54] text-xs text-slate-300">
+          <span class="font-bold text-amber-400">⚠️ Critical Model Architecture Rule:</span> Premier League matches average <strong>+0.275 more goals per game</strong> than Championship fixtures. Goal prediction models (Poisson / Dixon-Coles) must not pool tiers without an explicit competition intercept.
+        </div>
+      </div>
+    </div>
+
+    <!-- Season-by-Season Data Coverage Table -->
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-base font-bold text-white">Season-by-Season Master Coverage Registry</h3>
+          <p class="text-xs text-slate-400">Aggregated match volume, completeness rates, and goal scoring per campaign.</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="filterSeasonTable('all')" class="text-xs px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-slate-700">All</button>
+          <button onclick="filterSeasonTable('Premier League')" class="text-xs px-3 py-1 rounded bg-blue-600/30 text-blue-400 hover:bg-blue-600/50">PL Only</button>
+          <button onclick="filterSeasonTable('EFL Championship')" class="text-xs px-3 py-1 rounded bg-amber-600/30 text-amber-400 hover:bg-amber-600/50">Championship Only</button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto custom-scroll">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-[#1E293B] text-slate-400 uppercase text-[10px] tracking-wider border-b border-[#2D3A54]">
+            <tr>
+              <th class="p-3">Season</th>
+              <th class="p-3">Competition</th>
+              <th class="p-3">Status</th>
+              <th class="p-3 text-right">Matches</th>
+              <th class="p-3 text-right">Shots Cov</th>
+              <th class="p-3 text-right">Bet365 Odds</th>
+              <th class="p-3 text-right">Pinnacle Close</th>
+              <th class="p-3 text-right">Elo Cov</th>
+              <th class="p-3 text-right">Avg Goals</th>
+              <th class="p-3 text-right">Home Win %</th>
+            </tr>
+          </thead>
+          <tbody id="season-table-body" class="divide-y divide-[#2D3A54]/60">
+            <!-- Populated via JavaScript from season_json -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB 2: GOALS & BETTING MARKETS -->
+  <main id="tab-goals" class="max-w-7xl mx-auto space-y-6 hidden">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4">
+        <div class="text-xs text-slate-400 font-medium">Over 1.5 Goals</div>
+        <div class="text-3xl font-black text-purple-400 mt-1">75.57%</div>
+        <div class="text-[11px] text-slate-400 mt-1">7,238 / 9,578 matches</div>
+      </div>
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4">
+        <div class="text-xs text-slate-400 font-medium">Over 2.5 Goals (Main Market)</div>
+        <div class="text-3xl font-black text-blue-400 mt-1">50.48%</div>
+        <div class="text-[11px] text-slate-400 mt-1">4,835 / 9,578 (Near 50/50 Coin Flip)</div>
+      </div>
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4">
+        <div class="text-xs text-slate-400 font-medium">Over 3.5 Goals</div>
+        <div class="text-3xl font-black text-emerald-400 mt-1">28.10%</div>
+        <div class="text-[11px] text-slate-400 mt-1">2,691 / 9,578 matches</div>
+      </div>
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-4">
+        <div class="text-xs text-slate-400 font-medium">Both Teams To Score (BTTS)</div>
+        <div class="text-3xl font-black text-amber-400 mt-1">51.94%</div>
+        <div class="text-[11px] text-slate-400 mt-1">4,975 / 9,578 matches (Yes)</div>
+      </div>
+    </div>
+
+    <!-- Exact Goal Frequencies -->
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+      <h3 class="text-base font-bold text-white mb-2">Exact Match Total Goals Frequency Distribution</h3>
+      <p class="text-xs text-slate-400 mb-6">Empirical distribution of total goals per match across 9,578 observations.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="p-3 bg-[#1E293B] rounded-lg border border-[#2D3A54] text-center">
+          <div class="text-xs text-slate-400">0 Goals (0-0)</div>
+          <div class="text-xl font-bold text-white mt-1">7.81%</div>
+          <div class="text-[10px] text-slate-400">748 matches</div>
+        </div>
+        <div class="p-3 bg-[#1E293B] rounded-lg border border-[#2D3A54] text-center">
+          <div class="text-xs text-slate-400">1 Goal</div>
+          <div class="text-xl font-bold text-white mt-1">16.62%</div>
+          <div class="text-[10px] text-slate-400">1,592 matches</div>
+        </div>
+        <div class="p-3 bg-[#1E293B] rounded-lg border border-blue-500/40 text-center bg-blue-950/20">
+          <div class="text-xs text-blue-300 font-semibold">2 Goals (Peak Mode)</div>
+          <div class="text-xl font-bold text-blue-400 mt-1">25.14%</div>
+          <div class="text-[10px] text-slate-400">2,408 matches</div>
+        </div>
+        <div class="p-3 bg-[#1E293B] rounded-lg border border-[#2D3A54] text-center">
+          <div class="text-xs text-slate-400">3 Goals</div>
+          <div class="text-xl font-bold text-white mt-1">22.33%</div>
+          <div class="text-[10px] text-slate-400">2,139 matches</div>
+        </div>
+        <div class="p-3 bg-[#1E293B] rounded-lg border border-[#2D3A54] text-center">
+          <div class="text-xs text-slate-400">4 Goals</div>
+          <div class="text-xl font-bold text-white mt-1">14.75%</div>
+          <div class="text-[10px] text-slate-400">1,413 matches</div>
+        </div>
+        <div class="p-3 bg-[#1E293B] rounded-lg border border-[#2D3A54] text-center">
+          <div class="text-xs text-slate-400">5+ Goals</div>
+          <div class="text-xl font-bold text-white mt-1">13.34%</div>
+          <div class="text-[10px] text-slate-400">1,278 matches</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB 3: BOX-SCORES & CONVERSION -->
+  <main id="tab-stats" class="max-w-7xl mx-auto space-y-6 hidden">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+        <h3 class="text-base font-bold text-white mb-2">Home vs Away Tactical Box-Scores</h3>
+        <p class="text-xs text-slate-400 mb-4">Per-match averages showing home field physical dominance.</p>
+
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-3 rounded-lg bg-[#1E293B]">
+            <span class="text-xs text-slate-300 font-medium">Average Goals</span>
+            <span class="text-xs font-mono font-bold text-emerald-400">Home: 1.52 vs Away: 1.15 (+32%)</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-[#1E293B]">
+            <span class="text-xs text-slate-300 font-medium">Total Shots</span>
+            <span class="text-xs font-mono font-bold text-blue-400">Home: 13.56 vs Away: 11.23 (+21%)</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-[#1E293B]">
+            <span class="text-xs text-slate-300 font-medium">Shots on Target (SOT)</span>
+            <span class="text-xs font-mono font-bold text-purple-400">Home: 4.64 vs Away: 3.82 (+21%)</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-[#1E293B]">
+            <span class="text-xs text-slate-300 font-medium">Corner Kicks</span>
+            <span class="text-xs font-mono font-bold text-amber-400">Home: 5.71 vs Away: 4.69 (+22%)</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-[#1E293B]">
+            <span class="text-xs text-slate-300 font-medium">Yellow Cards</span>
+            <span class="text-xs font-mono font-bold text-rose-400">Home: 1.74 vs Away: 1.96 (Away +13%)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+        <h3 class="text-base font-bold text-white mb-2">The Shot Conversion Law</h3>
+        <p class="text-xs text-slate-400 mb-4">Empirical correlation between in-match metrics and goal production.</p>
+
+        <div class="space-y-3 text-xs">
+          <div class="p-3 rounded-lg bg-[#1E293B] border border-blue-500/30">
+            <div class="font-bold text-blue-300">Shots on Target to Goal Ratio: ~31.8%</div>
+            <p class="text-slate-400 mt-1">Approximately 1 in every 3.15 shots on target results in a goal. This is the single strongest predictor of offensive output ($r = 0.584$).</p>
+          </div>
+          <div class="p-3 rounded-lg bg-[#1E293B] border border-purple-500/30">
+            <div class="font-bold text-purple-300">Total Shots to Goal Ratio: ~11.2%</div>
+            <p class="text-slate-400 mt-1">Total shots correlate moderately ($r = 0.381$), but contain noise from low-probability long-range attempts.</p>
+          </div>
+          <div class="p-3 rounded-lg bg-[#1E293B] border border-amber-500/30">
+            <div class="font-bold text-amber-300">Corner Kick Conversion: ~2.8%</div>
+            <p class="text-slate-400 mt-1">Only 2.8% of corners lead directly to a goal, proving that corner count is a secondary indicator of territory rather than direct conversion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB 4: ELO CALIBRATION & BOOKMAKERS -->
+  <main id="tab-elo" class="max-w-7xl mx-auto space-y-6 hidden">
+    <!-- Predictive Hierarchy Comparison -->
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+      <h3 class="text-base font-bold text-white mb-2">Predictive Accuracy Hierarchy (Brier Score Benchmarking)</h3>
+      <p class="text-xs text-slate-400 mb-6">Lower Brier score indicates superior probabilistic forecasting accuracy.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-[#1E293B] border border-purple-500/50">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-400 uppercase">Rank #1 • Sharpest</span>
+            <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded">T-0 min</span>
+          </div>
+          <div class="text-sm font-bold text-white mt-2">Pinnacle Closing Line</div>
+          <div class="text-3xl font-black text-purple-400 mt-1">0.21958</div>
+          <div class="text-xs text-slate-400 mt-1">Incorporates late breaking news, sharp liquidity, and confirmed starting XIs.</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#1E293B] border border-blue-500/50">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-blue-400 uppercase">Rank #2 • Retail Target</span>
+            <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded">T-48 hrs</span>
+          </div>
+          <div class="text-sm font-bold text-white mt-2">Bet365 Opening Odds</div>
+          <div class="text-3xl font-black text-blue-400 mt-1">0.22018</div>
+          <div class="text-xs text-slate-400 mt-1">Early market benchmark. ML models aim to identify mispricings here.</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#1E293B] border border-slate-600">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-400 uppercase">Rank #3 • Baseline Floor</span>
+            <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Statistical</span>
+          </div>
+          <div class="text-sm font-bold text-white mt-2">Pre-Match Team Elo</div>
+          <div class="text-3xl font-black text-slate-300 mt-1">0.22531</div>
+          <div class="text-xs text-slate-400 mt-1">Pure mathematical power ranking baseline without betting market data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elo Rating Calibration -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+        <h3 class="text-base font-bold text-white mb-2">Elo Mathematical Verification</h3>
+        <ul class="space-y-3 text-xs text-slate-300">
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Zero Probability Distortion:</strong> Sum of Home Win, Draw, and Away Win probabilities equals exactly <strong>1.000000</strong> across all 9,578 matches.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Home Field Advantage Constant:</strong> When two clubs have identical ratings (diff = 0), Elo assigns <strong>43.0% Home Win</strong> vs <strong>28.8% Away Win</strong>, reflecting an empirical home bonus of +65 Elo points.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Strict Temporal Precedence:</strong> Ratings update strictly post-match. Ratings used for predictions are anterior.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+        <h3 class="text-base font-bold text-white mb-2">Bookmaker Vigorish (Vig / Margin)</h3>
+        <p class="text-xs text-slate-400 mb-4">Comparison of retail cut vs sharp closing cut.</p>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300 font-medium">Bet365 Opening Margin (Avg 4.89%)</span>
+              <span class="text-amber-400 font-bold font-mono">4.89%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2">
+              <div class="bg-amber-500 h-2 rounded-full" style="width: 48.9%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300 font-medium">Pinnacle Closing Margin (Avg 2.72%)</span>
+              <span class="text-blue-400 font-bold font-mono">2.72%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" style="width: 27.2%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB 5: PLAYER INTELLIGENCE -->
+  <main id="tab-player" class="max-w-7xl mx-auto space-y-6 hidden">
+    <!-- Concrete Drill-Down Showcase: Man City vs Liverpool -->
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#2D3A54] mb-4 gap-2">
+        <div>
+          <span class="text-xs font-bold text-blue-400 uppercase tracking-wide">Live Database Drill-Down Showcase</span>
+          <h3 class="text-lg font-extrabold text-white">Manchester City 4 – 1 Liverpool (April 1, 2023)</h3>
+          <p class="text-xs text-slate-400">Proving granular tracking: In-Match Matchday Performance vs Full 2022/23 Season Performance.</p>
+        </div>
+        <div class="text-right">
+          <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded">Premier League GW 29</span>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto custom-scroll">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-[#1E293B] text-slate-400 uppercase text-[10px] tracking-wider border-b border-[#2D3A54]">
+            <tr>
+              <th class="p-3">Player Name</th>
+              <th class="p-3">Role</th>
+              <th class="p-3 text-right">Match Mins</th>
+              <th class="p-3 text-right">Match G/A</th>
+              <th class="p-3 text-right">Match xG</th>
+              <th class="p-3 text-right">Match FPL Pts</th>
+              <th class="p-3 text-right">Season Apps</th>
+              <th class="p-3 text-right">Season Goals</th>
+              <th class="p-3 text-right">Season Assists</th>
+              <th class="p-3 text-right">Season xG</th>
+              <th class="p-3 text-right">Season Pts</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#2D3A54]/60">
+            <tr class="hover:bg-[#1E293B]/50">
+              <td class="p-3 font-semibold text-white">Kevin De Bruyne</td>
+              <td class="p-3 text-blue-400">MID</td>
+              <td class="p-3 text-right font-mono">90'</td>
+              <td class="p-3 text-right font-mono text-emerald-400">1G / 1A</td>
+              <td class="p-3 text-right font-mono">0.84</td>
+              <td class="p-3 text-right font-mono font-bold text-white">13 pts</td>
+              <td class="p-3 text-right font-mono">32</td>
+              <td class="p-3 text-right font-mono">7</td>
+              <td class="p-3 text-right font-mono text-emerald-400 font-bold">18</td>
+              <td class="p-3 text-right font-mono">2.92</td>
+              <td class="p-3 text-right font-mono font-bold text-amber-400">183</td>
+            </tr>
+            <tr class="hover:bg-[#1E293B]/50">
+              <td class="p-3 font-semibold text-white">Jack Grealish</td>
+              <td class="p-3 text-blue-400">MID</td>
+              <td class="p-3 text-right font-mono">88'</td>
+              <td class="p-3 text-right font-mono text-emerald-400">1G / 1A</td>
+              <td class="p-3 text-right font-mono">0.48</td>
+              <td class="p-3 text-right font-mono font-bold text-white">12 pts</td>
+              <td class="p-3 text-right font-mono">28</td>
+              <td class="p-3 text-right font-mono">5</td>
+              <td class="p-3 text-right font-mono text-emerald-400">10</td>
+              <td class="p-3 text-right font-mono">3.61</td>
+              <td class="p-3 text-right font-mono font-bold text-amber-400">121</td>
+            </tr>
+            <tr class="hover:bg-[#1E293B]/50">
+              <td class="p-3 font-semibold text-white">Julián Álvarez</td>
+              <td class="p-3 text-rose-400">FWD</td>
+              <td class="p-3 text-right font-mono">90'</td>
+              <td class="p-3 text-right font-mono text-emerald-400">1G / 1A</td>
+              <td class="p-3 text-right font-mono">0.82</td>
+              <td class="p-3 text-right font-mono font-bold text-white">10 pts</td>
+              <td class="p-3 text-right font-mono">31</td>
+              <td class="p-3 text-right font-mono text-emerald-400 font-bold">9</td>
+              <td class="p-3 text-right font-mono">3</td>
+              <td class="p-3 text-right font-mono">5.46</td>
+              <td class="p-3 text-right font-mono font-bold text-amber-400">103</td>
+            </tr>
+            <tr class="hover:bg-[#1E293B]/50">
+              <td class="p-3 font-semibold text-white">Ilkay Gündogan</td>
+              <td class="p-3 text-blue-400">MID</td>
+              <td class="p-3 text-right font-mono">90'</td>
+              <td class="p-3 text-right font-mono text-emerald-400">1G / 0A</td>
+              <td class="p-3 text-right font-mono">0.45</td>
+              <td class="p-3 text-right font-mono font-bold text-white">7 pts</td>
+              <td class="p-3 text-right font-mono">31</td>
+              <td class="p-3 text-right font-mono">8</td>
+              <td class="p-3 text-right font-mono">6</td>
+              <td class="p-3 text-right font-mono">6.20</td>
+              <td class="p-3 text-right font-mono font-bold text-amber-400">132</td>
+            </tr>
+            <tr class="hover:bg-[#1E293B]/50">
+              <td class="p-3 font-semibold text-white">Riyad Mahrez</td>
+              <td class="p-3 text-blue-400">MID</td>
+              <td class="p-3 text-right font-mono">90'</td>
+              <td class="p-3 text-right font-mono text-emerald-400">0G / 1A</td>
+              <td class="p-3 text-right font-mono">0.27</td>
+              <td class="p-3 text-right font-mono font-bold text-white">5 pts</td>
+              <td class="p-3 text-right font-mono">30</td>
+              <td class="p-3 text-right font-mono">5</td>
+              <td class="p-3 text-right font-mono text-emerald-400">12</td>
+              <td class="p-3 text-right font-mono">4.23</td>
+              <td class="p-3 text-right font-mono font-bold text-amber-400">126</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modern Era Top Scorers -->
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+      <h3 class="text-base font-bold text-white mb-2">Modern Era (2016–Present) Premier League Top Scorers</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-xs">
+        <div class="p-3 rounded-lg bg-[#1E293B] border border-[#2D3A54]">
+          <div class="font-bold text-white text-sm">Mohamed Salah</div>
+          <div class="text-xl font-extrabold text-emerald-400 mt-1">118 goals</div>
+          <div class="text-slate-400 text-[11px]">Liverpool (2017–Present)</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#1E293B] border border-[#2D3A54]">
+          <div class="font-bold text-white text-sm">Erling Haaland</div>
+          <div class="text-xl font-extrabold text-emerald-400 mt-1">118 goals</div>
+          <div class="text-slate-400 text-[11px]">Manchester City (2022–Present)</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#1E293B] border border-[#2D3A54]">
+          <div class="font-bold text-white text-sm">Harry Kane</div>
+          <div class="text-xl font-extrabold text-emerald-400 mt-1">128 goals</div>
+          <div class="text-slate-400 text-[11px]">Tottenham (Unified spelling)</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#1E293B] border border-[#2D3A54]">
+          <div class="font-bold text-white text-sm">Ollie Watkins</div>
+          <div class="text-xl font-extrabold text-emerald-400 mt-1">91 goals</div>
+          <div class="text-slate-400 text-[11px]">Aston Villa</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB 6: QUALITY & LEAKAGE AUDIT MATRIX -->
+  <main id="tab-audit" class="max-w-7xl mx-auto space-y-6 hidden">
+    <!-- Leakage Warnings Banner -->
+    <div class="p-4 rounded-xl bg-rose-950/30 border border-rose-500/40 text-xs text-rose-200">
+      <h3 class="text-sm font-bold text-rose-300 flex items-center gap-2 mb-1">
+        <span>⚠️</span> Critical Pre-Match Data Leakage Safeguards Codified
+      </h3>
+      <p class="leading-relaxed">
+        Sorting fixtures chronologically does <strong>not</strong> eliminate data leakage. The audit uncovered 3 in-match / post-match features that must never enter the pre-match prediction matrix $X$: raw in-match box-score counts, closing odds used prematurely, and in-match player minutes aggregations.
+      </p>
+    </div>
+
+    <!-- Automated Validation Tests Registry -->
+    <div class="bg-[#151D2F] border border-[#2D3A54] rounded-xl p-5 shadow-sm">
+      <h3 class="text-base font-bold text-white mb-4">Complete Validation Registry (19 Automated Tests)</h3>
+      <div class="overflow-x-auto custom-scroll">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-[#1E293B] text-slate-400 uppercase text-[10px] tracking-wider border-b border-[#2D3A54]">
+            <tr>
+              <th class="p-3">ID</th>
+              <th class="p-3">Category</th>
+              <th class="p-3">Test Name</th>
+              <th class="p-3">Target Layer</th>
+              <th class="p-3">Severity</th>
+              <th class="p-3">Result</th>
+              <th class="p-3">Audit Details</th>
+            </tr>
+          </thead>
+          <tbody id="val-table-body" class="divide-y divide-[#2D3A54]/60">
+            <!-- Populated via JavaScript from val_json -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Script for Navigation & Data Rendering -->
+  <script>
+    const seasonData = [{"competition": "EFL Championship", "season": "2016/2017", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.61, "home_win_pct": 47.46, "draw_pct": 23.55, "away_win_pct": 28.99}, {"competition": "EFL Championship", "season": "2017/2018", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.55, "home_win_pct": 43.12, "draw_pct": 26.81, "away_win_pct": 30.07}, {"competition": "EFL Championship", "season": "2018/2019", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 99.82, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.67, "home_win_pct": 43.48, "draw_pct": 29.35, "away_win_pct": 27.17}, {"competition": "EFL Championship", "season": "2019/2020", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.64, "home_win_pct": 41.67, "draw_pct": 26.99, "away_win_pct": 31.34}, {"competition": "EFL Championship", "season": "2020/2021", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 99.64, "elo_coverage_pct": 100.0, "avg_goals": 2.31, "home_win_pct": 41.12, "draw_pct": 25.18, "away_win_pct": 33.7}, {"competition": "EFL Championship", "season": "2021/2022", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.51, "home_win_pct": 44.57, "draw_pct": 25.18, "away_win_pct": 30.25}, {"competition": "EFL Championship", "season": "2022/2023", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.43, "home_win_pct": 41.12, "draw_pct": 26.99, "away_win_pct": 31.88}, {"competition": "EFL Championship", "season": "2023/2024", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.68, "home_win_pct": 44.57, "draw_pct": 23.37, "away_win_pct": 32.07}, {"competition": "EFL Championship", "season": "2024/2025", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.45, "home_win_pct": 45.83, "draw_pct": 28.26, "away_win_pct": 25.91}, {"competition": "EFL Championship", "season": "2025/2026", "status": "Completed", "matches": 552, "expected_matches": 552, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 49.09, "elo_coverage_pct": 100.0, "avg_goals": 2.61, "home_win_pct": 41.67, "draw_pct": 26.45, "away_win_pct": 31.88}, {"competition": "EFL Championship", "season": "2026/2027", "status": "Active/Ongoing", "matches": 168, "expected_matches": 168, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 0.0, "elo_coverage_pct": 100.0, "avg_goals": 2.93, "home_win_pct": 41.67, "draw_pct": 26.19, "away_win_pct": 32.14}, {"competition": "Premier League", "season": "2016/2017", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.8, "home_win_pct": 49.21, "draw_pct": 22.11, "away_win_pct": 28.68}, {"competition": "Premier League", "season": "2017/2018", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.68, "home_win_pct": 45.53, "draw_pct": 26.05, "away_win_pct": 28.42}, {"competition": "Premier League", "season": "2018/2019", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.82, "home_win_pct": 47.63, "draw_pct": 18.68, "away_win_pct": 33.68}, {"competition": "Premier League", "season": "2019/2020", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.72, "home_win_pct": 45.26, "draw_pct": 24.21, "away_win_pct": 30.53}, {"competition": "Premier League", "season": "2020/2021", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.69, "home_win_pct": 37.89, "draw_pct": 21.84, "away_win_pct": 40.26}, {"competition": "Premier League", "season": "2021/2022", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.82, "home_win_pct": 42.89, "draw_pct": 23.16, "away_win_pct": 33.95}, {"competition": "Premier League", "season": "2022/2023", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.85, "home_win_pct": 48.42, "draw_pct": 22.89, "away_win_pct": 28.68}, {"competition": "Premier League", "season": "2023/2024", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 3.28, "home_win_pct": 46.05, "draw_pct": 21.58, "away_win_pct": 32.37}, {"competition": "Premier League", "season": "2024/2025", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 100.0, "elo_coverage_pct": 100.0, "avg_goals": 2.93, "home_win_pct": 40.79, "draw_pct": 24.47, "away_win_pct": 34.74}, {"competition": "Premier League", "season": "2025/2026", "status": "Completed", "matches": 380, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 55.26, "elo_coverage_pct": 100.0, "avg_goals": 2.75, "home_win_pct": 42.63, "draw_pct": 27.37, "away_win_pct": 30.0}, {"competition": "Premier League", "season": "2026/2027", "status": "Active/Ongoing", "matches": 90, "expected_matches": 380, "shots_coverage_pct": 100.0, "b365_odds_coverage_pct": 100.0, "pinnacle_close_coverage_pct": 0.0, "elo_coverage_pct": 100.0, "avg_goals": 2.7, "home_win_pct": 40.0, "draw_pct": 27.78, "away_win_pct": 32.22}];
+    const valData = [{"check_id": "MATCH_01", "category": "Match Integrity", "test_name": "Duplicate Match Key Check", "target": "matches_modern", "severity": "Critical", "result": "PASS", "details": "0 duplicate (match_date, home_team, away_team) entries found."}, {"check_id": "MATCH_02", "category": "Match Integrity", "test_name": "Null Core Match Attributes", "target": "matches_modern", "severity": "Critical", "result": "PASS", "details": "0 null values across core identifiers, goals, and results."}, {"check_id": "MATCH_03", "category": "Match Integrity", "test_name": "Valid Result Labels", "target": "matches_modern", "severity": "Critical", "result": "PASS", "details": "0 records with result not in [H, D, A]."}, {"check_id": "MATCH_04", "category": "Match Integrity", "test_name": "Self-Play Anomaly Check", "target": "matches_modern", "severity": "Critical", "result": "PASS", "details": "0 matches where a team plays against itself."}, {"check_id": "STATS_01", "category": "Match Statistics", "test_name": "Shots on Target <= Total Shots", "target": "match_stats", "severity": "High", "result": "FAIL", "details": "2 matches where shots on target exceed total shots."}, {"check_id": "STATS_02", "category": "Match Statistics", "test_name": "Goals > SOT (Own Goal Feasibility)", "target": "match_stats", "severity": "Medium", "result": "FLAGGED", "details": "57 matches where goals > shots on target (expected due to own goals not counting as on-target shots)."}, {"check_id": "STATS_03", "category": "Match Statistics", "test_name": "Non-Negative Box-Score Counts", "target": "match_stats", "severity": "Critical", "result": "PASS", "details": "0 negative box-score values found."}, {"check_id": "ELO_01", "category": "Elo Methodology", "test_name": "Elo Probabilities Sum to 1.0", "target": "match_elo_ratings", "severity": "Critical", "result": "PASS", "details": "0 matches where elo probabilities do not sum to 1.0."}, {"check_id": "ELO_02", "category": "Elo Methodology", "test_name": "Elo Home Advantage Parameter Consistency", "target": "match_elo_ratings", "severity": "Medium", "result": "PASS", "details": "Evenly matched clubs have Home Win prob = 0.430 vs Away Win prob = 0.288 (reflecting empirical home field advantage)."}, {"check_id": "ODDS_01", "category": "Betting Odds", "test_name": "Bet365 Decimal Odds > 1.0", "target": "match_betting_odds", "severity": "Critical", "result": "FAIL", "details": "1 matches with Bet365 odds <= 1.0."}, {"check_id": "ODDS_02", "category": "Betting Odds", "test_name": "Positive Bookmaker Vigorish (Overround >= 0)", "target": "match_betting_odds", "severity": "Critical", "result": "PASS", "details": "0 matches with negative bookmaker overround."}, {"check_id": "ODDS_03", "category": "Betting Odds", "test_name": "Odds Drift Distribution Sanity", "target": "match_betting_odds", "severity": "Low", "result": "PASS", "details": "Mean Pinnacle Home Odds Drift: 1.01%, Std: 7.48%. 7 extreme movements (>50%) representing breaking team news."}, {"check_id": "PLAYER_01", "category": "Player Tracking", "test_name": "Duplicate Player-Gameweek Records", "target": "player_gameweeks", "severity": "Medium", "result": "FAIL", "details": "10 duplicate player-gameweek entries found."}, {"check_id": "PLAYER_02", "category": "Player Tracking", "test_name": "Player Minutes Bounds [0, 120]", "target": "player_gameweeks", "severity": "Critical", "result": "PASS", "details": "0 records with minutes outside 0..120 range."}, {"check_id": "PLAYER_03", "category": "Player Tracking", "test_name": "Competition Scope Boundary Check", "target": "player_gameweeks", "severity": "Medium", "result": "PASS", "details": "Confirmed: Player data strictly covers Premier League (Tier 1). Zero coverage exists for EFL Championship (Tier 2). FPL reflects fantasy-registered players, not complete official team sheets."}, {"check_id": "LEAK_01", "category": "Data Leakage Risk", "test_name": "Match Box-Score Outcome Contamination", "target": "match_stats (shots, corners, cards)", "severity": "Critical", "result": "FLAGGED / HAZARD", "details": "Match box-score columns (home_shots, corners, fouls, cards) are in-match outcome variables. They MUST NOT be used directly as pre-match prediction features. They can only be used as historical trailing rolling averages (e.g., trailing 5-game average shots) with strict lag-1 shifts."}, {"check_id": "LEAK_02", "category": "Data Leakage Risk", "test_name": "Closing Odds Post-Facto Availability", "target": "match_betting_odds (pinnacle_close)", "severity": "Critical", "result": "FLAGGED / HAZARD", "details": "Pinnacle Closing Odds are recorded seconds before kickoff. If a predictive model claims to generate betting predictions hours or days in advance, using closing odds as an input feature constitutes look-ahead bias. Closing odds should only be used as a benchmarking target (Closing Line Value / CLV), not as an input feature."}, {"check_id": "LEAK_03", "category": "Data Leakage Risk", "test_name": "Player Lineup Value and Fielded Aggregations", "target": "matches_modern (home_lineup_value_m, home_players_fielded)", "severity": "High", "result": "FLAGGED / HAZARD", "details": "The aggregated columns home_lineup_value_m and home_players_fielded were constructed by filtering to players with minutes > 0 in that specific match. In a true pre-match setting, confirmed lineups are only released 60-75 minutes before kickoff, and in-game substitutions cannot be known beforehand. Using these directly causes post-whistle leakage."}, {"check_id": "LEAK_04", "category": "Data Leakage Risk", "test_name": "Elo Ratings Temporal Precedence", "target": "match_elo_ratings", "severity": "Low", "result": "PASS", "details": "Verified: home_elo_before and away_elo_before strictly represent prior posterior ratings before match kickoff, and Elo win probabilities exclude the match result."}];
+
+    function switchTab(tabId) {
+      document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('btn-' + tabId).classList.add('active');
+    }
+
+    function filterSeasonTable(comp) {
+      const tbody = document.getElementById('season-table-body');
+      tbody.innerHTML = '';
+      
+      const filtered = (comp === 'all') ? seasonData : seasonData.filter(r => r.competition === comp);
+      
+      filtered.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-[#1E293B]/50';
+        tr.innerHTML = `
+          <td class="p-3 font-semibold text-white">${r.season}</td>
+          <td class="p-3 font-medium ${r.competition.includes('Premier') ? 'text-blue-400' : 'text-amber-400'}">${r.competition}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] ${r.status === 'Completed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'}">${r.status}</span></td>
+          <td class="p-3 text-right font-mono font-bold text-white">${r.matches}</td>
+          <td class="p-3 text-right font-mono">${r.shots_coverage_pct}%</td>
+          <td class="p-3 text-right font-mono">${r.b365_odds_coverage_pct}%</td>
+          <td class="p-3 text-right font-mono">${r.pinnacle_close_coverage_pct}%</td>
+          <td class="p-3 text-right font-mono">${r.elo_coverage_pct}%</td>
+          <td class="p-3 text-right font-mono font-bold text-emerald-400">${r.avg_goals}</td>
+          <td class="p-3 text-right font-mono">${r.home_win_pct}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function populateValidationTable() {
+      const tbody = document.getElementById('val-table-body');
+      tbody.innerHTML = '';
+
+      valData.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-[#1E293B]/50';
+
+        let badgeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+        if (r.result.includes('FAIL')) badgeClass = 'bg-rose-500/20 text-rose-400 border border-rose-500/30';
+        if (r.result.includes('FLAGGED') || r.result.includes('HAZARD')) badgeClass = 'bg-amber-500/20 text-amber-400 border border-amber-500/30';
+
+        let sevClass = 'text-slate-400';
+        if (r.severity === 'Critical') sevClass = 'text-rose-400 font-bold';
+        if (r.severity === 'High') sevClass = 'text-amber-400 font-semibold';
+
+        tr.innerHTML = `
+          <td class="p-3 font-mono font-bold text-slate-300">${r.check_id}</td>
+          <td class="p-3 text-slate-400">${r.category}</td>
+          <td class="p-3 font-semibold text-white">${r.test_name}</td>
+          <td class="p-3 font-mono text-[11px] text-blue-300">${r.target}</td>
+          <td class="p-3 ${sevClass}">${r.severity}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] ${badgeClass}">${r.result}</span></td>
+          <td class="p-3 text-slate-400 text-xs">${r.details}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Init
+    filterSeasonTable('all');
+    populateValidationTable();
+  </script>
+</body>
+</html>
