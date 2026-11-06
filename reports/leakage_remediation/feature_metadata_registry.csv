@@ -1,0 +1,162 @@
+feature_name,category,modeling_role,temporal_classification,data_type,missing_master_count,missing_master_pct,missing_tier1_count,missing_tier1_pct,missing_tier2_count,missing_tier2_pct
+match_id,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+competition_id,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+competition_name,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+season_id,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+season_name,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+season_start_year,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,int64,0,0.0,0,0.0,0,0.0
+match_date,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+kickoff_time,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,2796,29.19,1140,14.39,1656,100.0
+kickoff_timestamp,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,datetime64[us],0,0.0,0,0.0,0,0.0
+prediction_cutoff,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,datetime64[us],0,0.0,0,0.0,0,0.0
+has_exact_kickoff_timestamp,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,bool,0,0.0,0,0.0,0,0.0
+temporal_tier,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+kickoff_time_source,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+home_team_id,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+home_team_name,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+away_team_id,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+away_team_name,Metadata & Temporal Anchor,Identifier / Metadata,Metadata,str,0,0.0,0,0.0,0,0.0
+home_elo_before,Pre-Match Elo Rating,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,0,0.0,0,0.0,0,0.0
+away_elo_before,Pre-Match Elo Rating,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,0,0.0,0,0.0,0,0.0
+elo_difference,Pre-Match Elo Rating,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,0,0.0,0,0.0,0,0.0
+elo_home_win_prob,Pre-Match Elo Rating,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,0,0.0,0,0.0,0,0.0
+elo_draw_prob,Pre-Match Elo Rating,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,0,0.0,0,0.0,0,0.0
+elo_away_win_prob,Pre-Match Elo Rating,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,0,0.0,0,0.0,0,0.0
+b365_home_open,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,1,0.01,0,0.0,1,0.06
+b365_draw_open,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,0,0.0,0,0.0,0,0.0
+b365_away_open,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,0,0.0,0,0.0,0,0.0
+b365_open_overround,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,1,0.01,0,0.0,1,0.06
+b365_open_implied_home_prob,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,1,0.01,0,0.0,1,0.06
+b365_open_implied_draw_prob,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,1,0.01,0,0.0,1,0.06
+b365_open_implied_away_prob,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,1,0.01,0,0.0,1,0.06
+pinnacle_home_open,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+pinnacle_draw_open,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+pinnacle_away_open,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+pinnacle_open_overround,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+pinnacle_open_implied_home_prob,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+pinnacle_open_implied_draw_prob,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+pinnacle_open_implied_away_prob,Pre-Match Opening Betting Odds,Predictive Input Feature,Tier 2 (Mid-Week Scraping Assumption),float64,723,7.55,722,9.11,1,0.06
+home_prior_matches_count,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,int64,0,0.0,0,0.0,0,0.0
+home_rest_days,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goals_scored_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goals_conceded_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goal_diff_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_shots_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_sot_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_corners_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_points_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_win_rate_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_draw_rate_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_loss_rate_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goals_scored_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goals_conceded_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goal_diff_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_shots_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_sot_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_corners_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_points_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_win_rate_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_draw_rate_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_loss_rate_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_fouls_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_cards_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goals_scored_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goals_conceded_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_goal_diff_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_shots_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_sot_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_corners_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_points_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_win_rate_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_draw_rate_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_loss_rate_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,28,0.29,14,0.18,14,0.85
+home_venue_prior_matches_count,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,int64,0,0.0,0,0.0,0,0.0
+home_venue_goals_scored_roll3,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_goals_conceded_roll3,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_goals_scored_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_goals_conceded_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_shots_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_sot_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_corners_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_points_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_venue_win_rate_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_prior_matches_count,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,int64,0,0.0,0,0.0,0,0.0
+away_rest_days,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goals_scored_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goals_conceded_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goal_diff_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_shots_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_sot_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_corners_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_points_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_win_rate_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_draw_rate_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_loss_rate_roll3,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goals_scored_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goals_conceded_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goal_diff_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_shots_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_sot_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_corners_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_points_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_win_rate_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_draw_rate_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_loss_rate_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_fouls_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_cards_roll5,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goals_scored_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goals_conceded_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_goal_diff_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_shots_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_sot_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_corners_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_points_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_win_rate_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_draw_rate_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_loss_rate_roll10,Team-Level Overall Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,30,0.31,17,0.21,13,0.79
+away_venue_prior_matches_count,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,int64,0,0.0,0,0.0,0,0.0
+away_venue_goals_scored_roll3,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_goals_conceded_roll3,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_goals_scored_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_goals_conceded_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_shots_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_sot_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_corners_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_points_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+away_venue_win_rate_roll5,Venue-Specific Rolling Form,Predictive Input Feature,Tier 1 in Tier 1 Set / Tier 2 in Tier 2 Set,float64,58,0.61,31,0.39,27,1.63
+home_squad_prior_goals_sum,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+home_squad_prior_assists_sum,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+home_top_scorer_prior_goals,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+home_squad_prior_xg_sum,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,7908,82.56,6252,78.92,1656,100.0
+home_squad_minutes_14d,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+away_squad_prior_goals_sum,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+away_squad_prior_assists_sum,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+away_top_scorer_prior_goals,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+away_squad_prior_xg_sum,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,7908,82.56,6252,78.92,1656,100.0
+away_squad_minutes_14d,Pre-Match Player Intelligence (PL Only),Predictive Input Feature,"Tier 1 (PL Only, Match End Verified)",float64,5688,59.39,4032,50.9,1656,100.0
+target_full_time_home_goals,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_full_time_away_goals,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_full_time_result,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),str,0,0.0,0,0.0,0,0.0
+target_home_win,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_draw,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_away_win,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_total_goals,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_over_2_5,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_btts,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+target_goal_difference,Target Variable,Supervised ML Target (Post-Match),Post-Match (Quarantined from Inputs),int64,0,0.0,0,0.0,0,0.0
+benchmark_pinnacle_close_home,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,711,7.42,711,8.98,0,0.0
+benchmark_pinnacle_close_draw,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,711,7.42,711,8.98,0,0.0
+benchmark_pinnacle_close_away,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,711,7.42,711,8.98,0,0.0
+benchmark_pinnacle_close_overround,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,711,7.42,711,8.98,0,0.0
+benchmark_pinnacle_close_implied_home,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,711,7.42,711,8.98,0,0.0
+benchmark_b365_close_home,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,2796,29.19,1140,14.39,1656,100.0
+benchmark_b365_close_draw,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,2796,29.19,1140,14.39,1656,100.0
+benchmark_b365_close_away,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,2796,29.19,1140,14.39,1656,100.0
+benchmark_match_home_shots,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,1,0.01,0,0.0,1,0.06
+benchmark_match_away_shots,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,1,0.01,0,0.0,1,0.06
+benchmark_match_home_sot,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,1,0.01,0,0.0,1,0.06
+benchmark_match_away_sot,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,1,0.01,0,0.0,1,0.06
+benchmark_match_home_corners,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,1,0.01,0,0.0,1,0.06
+benchmark_match_away_corners,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,1,0.01,0,0.0,1,0.06
+benchmark_home_elo_after,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,0,0.0,0,0.0,0,0.0
+benchmark_away_elo_after,Retrospective Benchmark,Post-Match Evaluation Benchmark,Post-Match (Quarantined from Inputs),float64,0,0.0,0,0.0,0,0.0

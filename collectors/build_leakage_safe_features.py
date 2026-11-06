@@ -1,21 +1,28 @@
 """
-MatchLab Phase 4: Leakage-Safe Pre-Match Feature Generation Pipeline
-Prediction Horizon: 24 Hours Before Kickoff (T-24h)
+MatchLab Phase 4: Leakage-Safe Pre-Match Feature Generation Pipeline (Upgraded)
+Prediction Horizon: Strict 24 Hours Before Kickoff (T-24h)
 
-Enforces strict temporal integrity:
+Enforces strict temporal integrity & forensic precision:
 1. Every historical feature is computed strictly using information finalized before:
    prediction_cutoff = kickoff_timestamp - 24 hours
 2. Current match in-match box-scores and scores are strictly excluded from pre-match features.
 3. Rolling team form (last 3, 5, 10 matches) is calculated using team-centric histories with match_end <= cutoff.
 4. Venue-specific rolling features (last 3, 5 matches) are calculated similarly.
 5. In-match player minutes and fielded lineup aggregations are completely eliminated.
-6. Pre-gameweek squad statistics (prior season goals, top scorer goals, 14-day congestion minutes) are aggregated strictly from prior matches.
-7. Post-match targets (target_*) and closing benchmarks (benchmark_*) are strictly separated from feature inputs.
-8. Applies verified data quality corrections (Match 2450 odds typo, 2 SOT typos, 10 FPL duplicates).
+6. Player True Team Resolution: Eliminates retroactive terminal-season club labeling by matching each
+   observation to official fixture participants (resolves 1,080 transfer lookahead anomalies).
+7. Strict Player Match Completion: Enforces match_end_ts <= prediction_cutoff for player features,
+   eliminating the 62 boundary instances where matches were in-progress at cutoff.
+8. Excludes inferred Bet365 odds for Match 2450 from strict odds features (set to NaN).
+9. Classifies full dataset into Tier 1 (7,922 verified exact) and Tier 2 (1,656 safe assumptions).
+10. Exports both complete master dataset (9,578 rows) and primary Tier 1 dataset (7,922 rows).
 
 Outputs:
-- data/processed/matches_prematch_24h_features.parquet
+- data/processed/matches_prematch_24h_features.parquet (9,578 matches)
 - data/processed/matches_prematch_24h_features.csv
+- data/processed/matches_prematch_24h_tier1.parquet (7,922 matches)
+- data/processed/matches_prematch_24h_tier1.csv
+- Table 'matches_prematch_24h' and View 'matches_prematch_24h_tier1' in data/matchlab.db
 """
 
 import sys
@@ -37,7 +44,7 @@ os.makedirs(REPORTS_DIR, exist_ok=True)
 
 def build_leakage_safe_dataset():
     print("=" * 80)
-    print("MATCHLAB: BUILDING LEAKAGE-SAFE PRE-MATCH (T-24H) FEATURE DATASET")
+    print("MATCHLAB: BUILDING LEAKAGE-SAFE PRE-MATCH (T-24H) FEATURE DATASET (UPGRADED)")
     print("=" * 80)
 
     # 1. Load Modern Matches & Player Gameweeks
@@ -55,26 +62,29 @@ def build_leakage_safe_dataset():
     # =========================================================================
     print("\n[Step 1] Applying verified forensic data quality corrections...")
     
-    # 1. Correct Match 2450 (Brentford vs Blackburn, 2019-02-02): b365_home 0.0 typo
+    # 1. Match 2450 (Brentford vs Blackburn, 2019-02-02): b365_home 0.0 typo
+    # Exclude inferred odds from strict odds features: set to NaN
     idx_odds_typo = df_matches[(df_matches['b365_home'] == 0.0) & (df_matches['home_team_id'] == 'brentford')].index
     if len(idx_odds_typo) > 0:
-        imputed_odds = float(df_matches.loc[idx_odds_typo, 'market_avg_home'].iloc[0]) if pd.notna(df_matches.loc[idx_odds_typo, 'market_avg_home'].iloc[0]) else 1.87
-        df_matches.loc[idx_odds_typo, 'b365_home'] = imputed_odds
-        print(f"  ✓ Corrected Match 2450 Bet365 home odds from 0.0 to {imputed_odds}")
+        df_matches.loc[idx_odds_typo, 'b365_home'] = np.nan
+        df_matches.loc[idx_odds_typo, 'b365_overround'] = np.nan
+        df_matches.loc[idx_odds_typo, 'b365_implied_home_prob'] = np.nan
+        df_matches.loc[idx_odds_typo, 'b365_implied_draw_prob'] = np.nan
+        df_matches.loc[idx_odds_typo, 'b365_implied_away_prob'] = np.nan
+        print("  ✓ Set Match 2450 Bet365 home odds & implied prob to NaN (strictly excluded inferred quote)")
 
     # 2. Correct Match 4692 (Newcastle vs West Ham, 2021-08-15): Away SOT (9) > Shots (8)
     idx_sot_1 = df_matches[(df_matches['match_date'] == '2021-08-15') & (df_matches['home_team_id'] == 'newcastle-united')].index
     if len(idx_sot_1) > 0:
-        # West Ham actual Opta stats: 18 shots, 9 on target
         df_matches.loc[idx_sot_1, 'away_shots'] = 18.0
-        print(f"  ✓ Corrected Match 4692 away shots from 8.0 to 18.0 (Opta verified)")
+        print("  ✓ Corrected Match 4692 away shots from 8.0 to 18.0 (Opta verified)")
 
     # 3. Correct Match 7744 (Burnley vs Swansea, 2024-11-10): Home shots (2) and SOT (7) transposed
     idx_sot_2 = df_matches[(df_matches['match_date'] == '2024-11-10') & (df_matches['home_team_id'] == 'burnley')].index
     if len(idx_sot_2) > 0:
         df_matches.loc[idx_sot_2, 'home_shots'] = 7.0
         df_matches.loc[idx_sot_2, 'home_shots_on_target'] = 2.0
-        print(f"  ✓ Corrected Match 7744 Burnley shots (7.0) and SOT (2.0) transposed columns")
+        print("  ✓ Corrected Match 7744 Burnley shots (7.0) and SOT (2.0) transposed columns")
 
     # 4. Deduplicate FPL player records (10 duplicates in 2025/26)
     len_before_p = len(df_players)
@@ -93,6 +103,7 @@ def build_leakage_safe_dataset():
     kickoff_timestamps = []
     has_exact_ko = []
     prediction_cutoffs = []
+    kickoff_sources = []
 
     for _, r in df_matches.iterrows():
         m_date = str(r['match_date'])
@@ -102,46 +113,54 @@ def build_leakage_safe_dataset():
 
         ts = None
         exact = False
+        source = 'unknown'
 
         # If PL and in FPL dict, use exact UTC timestamp
         if comp == 'premier-league' and (m_date, ht) in fpl_dict:
             fpl_ts = fpl_dict[(m_date, ht)]
             try:
-                # FPL is ISO e.g. 2016-08-15T19:00:00Z
                 ts = pd.to_datetime(fpl_ts).tz_localize(None)
                 exact = True
+                source = 'fpl_official_utc'
             except Exception:
                 pass
 
         # If not matched or Championship, check Football-Data kickoff_time
         if ts is None and pd.notna(k_time) and str(k_time).strip() != '':
             time_str = str(k_time).strip()
-            if len(time_str) == 5: # HH:MM
+            if len(time_str) == 5:
                 time_str += ":00"
             try:
                 ts = pd.to_datetime(f"{m_date} {time_str}")
                 exact = True
+                source = 'football_data_recorded'
             except Exception:
                 pass
 
         # If still null (Championship 2016-2018), apply documented canonical default
         if ts is None:
-            # Saturday/Sunday defaults to 15:00; weekdays to 19:45
             day_of_week = pd.to_datetime(m_date).dayofweek
             def_time = "15:00:00" if day_of_week in [5, 6] else "19:45:00"
             ts = pd.to_datetime(f"{m_date} {def_time}")
             exact = False
+            source = 'synthetic_default_1500_1945'
 
         kickoff_timestamps.append(ts)
         has_exact_ko.append(exact)
         prediction_cutoffs.append(ts - pd.Timedelta(hours=24))
+        kickoff_sources.append(source)
 
     df_matches['kickoff_timestamp'] = kickoff_timestamps
     df_matches['has_exact_kickoff_timestamp'] = has_exact_ko
     df_matches['prediction_cutoff'] = prediction_cutoffs
+    df_matches['kickoff_time_source'] = kickoff_sources
+    df_matches['temporal_tier'] = np.where(df_matches['has_exact_kickoff_timestamp'], 'tier_1_verified_exact', 'tier_2_safe_assumptions')
 
+    n_tier1 = (df_matches['temporal_tier'] == 'tier_1_verified_exact').sum()
+    n_tier2 = (df_matches['temporal_tier'] == 'tier_2_safe_assumptions').sum()
     print(f"  Exact Kickoff Timestamps: {sum(has_exact_ko):,} / {len(df_matches):,} ({sum(has_exact_ko)/len(df_matches)*100:.1f}%)")
-    print(f"  Premier League Exact Coverage: {df_matches[df_matches['competition_id'] == 'premier-league']['has_exact_kickoff_timestamp'].mean()*100:.1f}%")
+    print(f"  Tier 1 Verified Exact:    {n_tier1:,} matches")
+    print(f"  Tier 2 Safe Assumptions:  {n_tier2:,} matches")
 
     # Sort strictly chronologically by kickoff_timestamp
     df_matches = df_matches.sort_values(by=['kickoff_timestamp', 'match_id']).reset_index(drop=True)
@@ -223,7 +242,6 @@ def build_leakage_safe_dataset():
         })
 
     df_appearances = pd.DataFrame(team_appearances).sort_values('kickoff_timestamp').reset_index(drop=True)
-    # Pre-index appearances by team_id for fast lookup
     team_history_map = {}
     for team, grp in df_appearances.groupby('team_id'):
         team_history_map[team] = grp.to_dict(orient='records')
@@ -235,10 +253,8 @@ def build_leakage_safe_dataset():
     # =========================================================================
     print("\n[Step 4] Computing strictly lagged pre-match rolling features (T-24h Cutoff)...")
 
-    # Helper function to compute rolling statistics from prior records
     def compute_team_rolling_features(team_id, cutoff_ts, current_ko_ts, is_home_fixture):
         records = team_history_map.get(team_id, [])
-        # Strict Temporal Filter: match_end_timestamp <= cutoff_ts
         prior = [r for r in records if r['match_end_timestamp'] <= cutoff_ts]
 
         out = {}
@@ -315,7 +331,6 @@ def build_leakage_safe_dataset():
 
         return out
 
-    # Iterate over matches and generate pre-match feature vectors
     home_rolling_list = []
     away_rolling_list = []
 
@@ -335,12 +350,30 @@ def build_leakage_safe_dataset():
     print(f"  ✓ Generated {len(df_h_roll.columns) + len(df_a_roll.columns)} rolling features per match.")
 
     # =========================================================================
-    # STEP 5: INTEGRATE PRE-MATCH PLAYER INTELLIGENCE (PREMIER LEAGUE)
+    # STEP 5: INTEGRATE PRE-MATCH PLAYER INTELLIGENCE (UPGRADED)
     # =========================================================================
     print("\n[Step 5] Integrating pre-gameweek player intelligence (PL Only, strictly pre-cutoff)...")
 
-    # In FPL, we map player stats to prior matches strictly before cutoff
+    # 1. Resolve true match-day team for each player record to eliminate retroactive terminal season club labeling
+    pl_matches = df_matches[df_matches['competition_id'] == 'premier-league']
+    fixture_to_team = {}
+    for _, pr in pl_matches.iterrows():
+        d = str(pr['match_date'])
+        h = pr['home_team_id']
+        a = pr['away_team_id']
+        fixture_to_team[(d, a, True)] = h
+        fixture_to_team[(d, h, False)] = a
+
+    # Map true team_id
+    true_teams = [fixture_to_team.get((str(d), opp, bool(wh)), tid) 
+                  for d, opp, wh, tid in zip(df_players['match_date'], df_players['opponent_team_id'], df_players['was_home'], df_players['team_id'])]
+    changed_teams = sum(1 for orig, true_t in zip(df_players['team_id'], true_teams) if orig != true_t)
+    df_players['team_id'] = true_teams
+    print(f"  ✓ Resolved {changed_teams:,} retroactive mid-season transfer club mismatches to player true clubs.")
+
+    # 2. Compute exact timestamps and match completion timestamps
     df_players['kickoff_ts'] = pd.to_datetime(df_players['kickoff_time']).dt.tz_localize(None)
+    df_players['match_end_ts'] = df_players['kickoff_ts'] + pd.Timedelta(hours=2)
 
     # Pre-index player records by (season_name, team_id)
     player_history_map = {}
@@ -372,9 +405,9 @@ def build_leakage_safe_dataset():
             })
             continue
 
-        # Compute for home team
+        # Compute for home team (STRICT: match_end_ts <= cutoff eliminates unfinished matches)
         h_team = row['home_team_id']
-        h_recs = [r for r in player_history_map.get((season, h_team), []) if r['kickoff_ts'] <= cutoff]
+        h_recs = [r for r in player_history_map.get((season, h_team), []) if r['match_end_ts'] <= cutoff]
         if len(h_recs) == 0:
             h_p_out = {
                 'home_squad_prior_goals_sum': 0.0,
@@ -384,17 +417,16 @@ def build_leakage_safe_dataset():
                 'home_squad_minutes_14d': 0.0
             }
         else:
-            df_sub = pd.DataFrame(h_recs)
-            # Goals and assists
-            tot_g = float(df_sub['goals_scored'].sum())
-            tot_a = float(df_sub['assists'].sum())
-            # Top scorer goals
-            top_g = float(df_sub.groupby('player_id')['goals_scored'].sum().max())
-            # xG if available
-            tot_xg = float(df_sub['expected_goals'].dropna().sum()) if df_sub['expected_goals'].notna().any() else np.nan
-            # 14 day congestion
+            tot_g = float(sum(r['goals_scored'] for r in h_recs))
+            tot_a = float(sum(r['assists'] for r in h_recs))
+            xg_vals = [r['expected_goals'] for r in h_recs if pd.notna(r['expected_goals'])]
+            tot_xg = float(sum(xg_vals)) if len(xg_vals) > 0 else np.nan
             cut_14d = cutoff - pd.Timedelta(days=14)
-            mins_14d = float(df_sub[df_sub['kickoff_ts'] >= cut_14d]['minutes'].sum())
+            mins_14d = float(sum(r['minutes'] for r in h_recs if r['kickoff_ts'] >= cut_14d))
+            p_goals = {}
+            for r in h_recs:
+                p_goals[r['player_id']] = p_goals.get(r['player_id'], 0) + r['goals_scored']
+            top_g = float(max(p_goals.values())) if len(p_goals) > 0 else 0.0
 
             h_p_out = {
                 'home_squad_prior_goals_sum': tot_g,
@@ -405,9 +437,9 @@ def build_leakage_safe_dataset():
             }
         home_player_feats.append(h_p_out)
 
-        # Compute for away team
+        # Compute for away team (STRICT: match_end_ts <= cutoff)
         a_team = row['away_team_id']
-        a_recs = [r for r in player_history_map.get((season, a_team), []) if r['kickoff_ts'] <= cutoff]
+        a_recs = [r for r in player_history_map.get((season, a_team), []) if r['match_end_ts'] <= cutoff]
         if len(a_recs) == 0:
             a_p_out = {
                 'away_squad_prior_goals_sum': 0.0,
@@ -417,13 +449,16 @@ def build_leakage_safe_dataset():
                 'away_squad_minutes_14d': 0.0
             }
         else:
-            df_sub_a = pd.DataFrame(a_recs)
-            tot_g_a = float(df_sub_a['goals_scored'].sum())
-            tot_a_a = float(df_sub_a['assists'].sum())
-            top_g_a = float(df_sub_a.groupby('player_id')['goals_scored'].sum().max())
-            tot_xg_a = float(df_sub_a['expected_goals'].dropna().sum()) if df_sub_a['expected_goals'].notna().any() else np.nan
+            tot_g_a = float(sum(r['goals_scored'] for r in a_recs))
+            tot_a_a = float(sum(r['assists'] for r in a_recs))
+            xg_vals_a = [r['expected_goals'] for r in a_recs if pd.notna(r['expected_goals'])]
+            tot_xg_a = float(sum(xg_vals_a)) if len(xg_vals_a) > 0 else np.nan
             cut_14d_a = cutoff - pd.Timedelta(days=14)
-            mins_14d_a = float(df_sub_a[df_sub_a['kickoff_ts'] >= cut_14d_a]['minutes'].sum())
+            mins_14d_a = float(sum(r['minutes'] for r in a_recs if r['kickoff_ts'] >= cut_14d_a))
+            p_goals_a = {}
+            for r in a_recs:
+                p_goals_a[r['player_id']] = p_goals_a.get(r['player_id'], 0) + r['goals_scored']
+            top_g_a = float(max(p_goals_a.values())) if len(p_goals_a) > 0 else 0.0
 
             a_p_out = {
                 'away_squad_prior_goals_sum': tot_g_a,
@@ -437,7 +472,7 @@ def build_leakage_safe_dataset():
     df_h_player = pd.DataFrame(home_player_feats)
     df_a_player = pd.DataFrame(away_player_feats)
 
-    print(f"  ✓ Successfully engineered 10 strictly lagged pre-match player features for Premier League.")
+    print(f"  ✓ Engineered 10 pre-match player features with strict match completion (0 in-progress overlaps).")
 
     # =========================================================================
     # STEP 6: ASSEMBLE LEAKAGE-SAFE PRE-MATCH DATASET
@@ -448,7 +483,7 @@ def build_leakage_safe_dataset():
     core_cols = [
         'match_id', 'competition_id', 'competition_name', 'season_id', 'season_name',
         'season_start_year', 'match_date', 'kickoff_time', 'kickoff_timestamp',
-        'prediction_cutoff', 'has_exact_kickoff_timestamp',
+        'prediction_cutoff', 'has_exact_kickoff_timestamp', 'temporal_tier', 'kickoff_time_source',
         'home_team_id', 'home_team_name', 'away_team_id', 'away_team_name'
     ]
     df_core = df_matches[core_cols].copy()
@@ -528,35 +563,51 @@ def build_leakage_safe_dataset():
         df_benchmarks
     ], axis=1)
 
-    print(f"Final Leakage-Safe Feature DataFrame: {df_prematch_master.shape[0]:,} rows x {df_prematch_master.shape[1]} columns")
+    print(f"Final Master Feature DataFrame: {df_prematch_master.shape[0]:,} rows x {df_prematch_master.shape[1]} columns")
+
+    # Partition Tier 1 primary dataset
+    df_tier1 = df_prematch_master[df_prematch_master['temporal_tier'] == 'tier_1_verified_exact'].reset_index(drop=True)
+    print(f"Tier 1 Primary Dataset:        {df_tier1.shape[0]:,} rows x {df_tier1.shape[1]} columns")
 
     # =========================================================================
     # STEP 7: SAVE DELIVERABLES & DATABASE INTEGRATION
     # =========================================================================
     print("\n[Step 7] Exporting leakage-safe deliverables...")
 
-    out_parquet = os.path.join(PROCESSED_DIR, "matches_prematch_24h_features.parquet")
-    out_csv = os.path.join(PROCESSED_DIR, "matches_prematch_24h_features.csv")
+    # Master dataset (9,578 rows)
+    out_master_parquet = os.path.join(PROCESSED_DIR, "matches_prematch_24h_features.parquet")
+    out_master_csv = os.path.join(PROCESSED_DIR, "matches_prematch_24h_features.csv")
+    df_prematch_master.to_parquet(out_master_parquet, index=False)
+    df_prematch_master.to_csv(out_master_csv, index=False, encoding='utf-8')
+    print(f"  ✓ Saved Master Parquet: {out_master_parquet}")
+    print(f"  ✓ Saved Master CSV:     {out_master_csv}")
 
-    df_prematch_master.to_parquet(out_parquet, index=False)
-    print(f"  ✓ Saved Parquet: {out_parquet}")
-    df_prematch_master.to_csv(out_csv, index=False, encoding='utf-8')
-    print(f"  ✓ Saved CSV:     {out_csv}")
+    # Tier 1 dataset (7,922 rows)
+    out_tier1_parquet = os.path.join(PROCESSED_DIR, "matches_prematch_24h_tier1.parquet")
+    out_tier1_csv = os.path.join(PROCESSED_DIR, "matches_prematch_24h_tier1.csv")
+    df_tier1.to_parquet(out_tier1_parquet, index=False)
+    df_tier1.to_csv(out_tier1_csv, index=False, encoding='utf-8')
+    print(f"  ✓ Saved Tier 1 Parquet: {out_tier1_parquet}")
+    print(f"  ✓ Saved Tier 1 CSV:     {out_tier1_csv}")
 
-    # Also persist table into SQLite database
+    # SQLite Database Integration
     conn = sqlite3.connect(os.path.join(DATA_DIR, "matchlab.db"))
-    # Convert timestamps to string for SQLite compatibility
     df_sql = df_prematch_master.copy()
     df_sql['kickoff_timestamp'] = df_sql['kickoff_timestamp'].astype(str)
     df_sql['prediction_cutoff'] = df_sql['prediction_cutoff'].astype(str)
     df_sql.to_sql('matches_prematch_24h', conn, if_exists='replace', index=False)
     conn.execute("CREATE INDEX IF NOT EXISTS idx_prematch_date ON matches_prematch_24h(match_date);")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_prematch_comp ON matches_prematch_24h(competition_id);")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_prematch_tier ON matches_prematch_24h(temporal_tier);")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_prematch_ht ON matches_prematch_24h(home_team_id);")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_prematch_at ON matches_prematch_24h(away_team_id);")
+    
+    # Create SQLite view for Tier 1
+    conn.execute("DROP VIEW IF EXISTS matches_prematch_24h_tier1;")
+    conn.execute("CREATE VIEW matches_prematch_24h_tier1 AS SELECT * FROM matches_prematch_24h WHERE temporal_tier = 'tier_1_verified_exact';")
     conn.commit()
     conn.close()
-    print("  ✓ Persisted and indexed 'matches_prematch_24h' table in data/matchlab.db")
+    print("  ✓ Persisted 'matches_prematch_24h' table and 'matches_prematch_24h_tier1' view in data/matchlab.db")
 
     print("\n" + "=" * 80)
     print("LEAKAGE-SAFE PIPELINE COMPLETED SUCCESSFULLY")

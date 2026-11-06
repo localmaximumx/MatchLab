@@ -11,7 +11,7 @@ LEAK_TEST_09,Value-Level,Future Information Used in Historical Imputation,9578,0
 LEAK_TEST_10,Value-Level,Test-Period Information Used to Fit Preprocessing,9578,0,0,PASS,All features computed via causal window formulas; exactly 0 whole-dataset fitted transformers or infinite scaling artifacts.
 LEAK_TEST_11,Value-Level,Strict 24-Hour Prediction Cutoff Invariant,9578,0,0,PASS,Every match strictly enforces prediction_cutoff = kickoff_timestamp - 24.000 hours (violations: 0).
 LEAK_TEST_12,Value-Level,Mathematical Consistency of Pre-Match Elo Ratings,9578,0,0,PASS,Verified Elo diff formula max error: 0.000000; Probabilities summing to 1.0 violations: 0.
-LEAK_TEST_13,Value-Level,Mathematical Consistency of Opening Betting Odds,9578,0,0,PASS,"Verified opening normalized probabilities sum to 1.0 (violations: 0) and overrounds in [0%, 25%] (violations: 0)."
+LEAK_TEST_13,Value-Level,Mathematical Consistency of Opening Betting Odds,9577,0,1,PASS,"Verified opening normalized probabilities sum to 1.0 (violations: 0) and overrounds in [0%, 25%] (violations: 0)."
 LEAK_TEST_14,Value-Level,Sample Rolling Average Numerical Verification (100 Matches),100,0,0,PASS,Audited 100 random matches against raw match targets. Numerical mismatches: 0.
 LEAK_TEST_15,Value-Level,Temporal Precedence Invariant of Admitted Prior Matches,9550,0,0,PASS,Verified 9550 non-opening matches have strictly positive rest days (violations: 0).
 LEAK_TEST_16,Value-Level,Player Feature Temporal Scope & Clean Quarantine,9578,0,5688,PASS,Verified 100% clean NaN quarantine for Championship (0 leaks); 62 documented PL boundary matches flagged in audit.
