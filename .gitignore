@@ -1,8 +1,21 @@
 # MatchLab Git Ignore
 
-# Raw and Large Binary Data
-data/raw/
+# Keep local supporting directories local (not on GitHub)
+data/
+notebooks/
+collectors/
+reports/
+scripts/
+tests/
 archive/
+docs/
+features/
+models/
+evaluation/
+config/
+schema/
+
+# Databases & raw files
 *.db
 *.sqlite
 *.sqlite3

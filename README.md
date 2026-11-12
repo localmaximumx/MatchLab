@@ -4,10 +4,9 @@
 [![NumPy](https://img.shields.io/badge/NumPy-Foundational%20Math-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org)
 [![SciPy](https://img.shields.io/badge/SciPy-Optimization%20%26%20GLM-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)](https://scipy.org)
 [![Pandas](https://img.shields.io/badge/Pandas-Data%20Engineering-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org)
-[![Leakage Tests](https://img.shields.io/badge/Leakage%20Tests-16%2F16%20Passed-10b981?style=for-the-badge&logo=checkmarx&logoColor=white)](tests/)
-[![Dataset](https://img.shields.io/badge/Dataset-6%2C930%20Matches%20%7C%200%20Nulls-6366f1?style=for-the-badge)](data/processed/premier_league/)
+[![Dataset](https://img.shields.io/badge/Dataset-6%2C930%20Matches%20%7C%200%20Nulls-6366f1?style=for-the-badge)](pl_matches_all_seasons_clean.parquet)
 
-> ⚽ **MatchLab** is an open-source machine learning and sports analytics engine for professional football. It implements an $L_2$-regularized **Dixon-Coles Bivariate Poisson Regression** model built on pure NumPy and SciPy foundations, trained across **18 Premier League seasons** (2008/09 to 2025/26) under strict, verifiable **24-hour pre-match zero-leakage horizons**.
+> ⚽ **MatchLab** is a focused machine learning and sports analytics project for professional football. It implements an $L_2$-regularized **Dixon-Coles Bivariate Poisson Regression** model built on pure NumPy and SciPy foundations, trained across **18 Premier League seasons** (2008/09 to 2025/26) under strict, verifiable **24-hour pre-match zero-leakage horizons**.
 
 ---
 
@@ -15,56 +14,35 @@
 
 ### 📊 Project Status (Where We Are Today)
 
-MatchLab has completed **Phase 1 through Phase 6** of its research architecture:
+MatchLab has completed the foundational data preparation and mathematical modeling phases:
 
-- [x] **Unified Multi-Decade Dataset:** Cleaned, validated, and merged **6,930 Premier League matches** (2008/09 – 2025/26) across 116 strictly audited columns with **zero nulls, zero NaNs, and zero placeholders**.
-- [x] **Adversarial Leakage Quarantine:** Built and verified a **16-test automated adversarial safety suite** ensuring zero temporal leakage—all features respect the strict 24-hour pre-match cutoff horizon ($T - 24.000\text{h}$). Closing odds and in-match statistics are isolated to retrospective benchmarks.
-- [x] **Longitudinal Pre-Match Elo System:** Continuous club-level rating system tracking relative team strengths across promotion/relegation cycles without seasonal resets.
-- [x] **Regularized Poisson GLM ($L_2$ Ridge):** Vectorized gradient descent estimating home and away goal intensities ($\lambda_h, \lambda_a$) with explicit parameter regularization to eliminate overfitting.
+- [x] **Unified Multi-Decade Dataset:** Cleaned, validated, and merged **6,930 Premier League matches** (2008/09 – 2025/26) across 116 strictly audited columns with **zero nulls, zero NaNs, and zero placeholders** (`pl_matches_all_seasons_clean.parquet`).
+- [x] **Adversarial Leakage Quarantine:** All features respect the strict 24-hour pre-match cutoff horizon ($T - 24.000\text{h}$). Closing odds and in-match statistics are isolated from inputs to prevent future leakage.
+- [x] **Longitudinal Pre-Match Elo System:** Continuous club-level rating system tracking relative team strengths across promotion and relegation without seasonal resets.
+- [x] **Regularized Poisson GLM ($L_2$ Ridge):** Vectorized gradient descent estimating home and away goal intensities ($\lambda_h, \lambda_a$) with parameter regularization to eliminate overfitting.
 - [x] **Dixon-Coles Low-Score Correction:** Optimization of the bivariate correlation parameter $\rho \approx -0.0408$, correcting standard Poisson underestimation of low draws ($0-0, 1-1$).
-- [x] **Full $10 \times 10$ Joint Probability Tensor:** Derives exact scoreline distributions, 1X2 match outcome probabilities, Over/Under 2.5 goals, and Both Teams to Score (BTTS).
+- [x] **Full Joint Probability Tensor:** Derives exact scoreline distributions, 1X2 match outcome probabilities, Over/Under 2.5 goals, and Both Teams to Score (BTTS).
 - [x] **Empirical Benchmark Evaluation:** Out-of-sample 1X2 Ranked Probability Score (RPS) evaluated at **0.2055** against the **0.1956** Bet365 bookmaker consensus benchmark.
 
 ### 🚀 Final Goals (Where We Are Going)
 
-- [ ] **Phase 7 — Automated Value Detection & Market Edge Identification:** Compute model fair odds against market opening prices to identify statistically significant positive expected value ($+EV$) opportunities.
-- [ ] **Phase 8 — Dynamic Bankroll Management (Kelly Criterion):** Fractional Kelly staking simulation backtested against historical opening and closing market odds.
-- [ ] **Phase 9 — $T - 1\text{h}$ Confirmed Lineup Module:** Real-time ingestion of confirmed 60-minute lineups and starting XI ratings to adjust pre-match $\lambda$ values.
-- [ ] **Phase 10 — Multi-League Expansion:** Port the pipeline to other major European leagues (EFL Championship, La Liga, Serie A, and Bundesliga).
-- [ ] **Phase 11 — Live Prediction API & Web Dashboard:** Lightweight FastAPI service serving real-time weekend match forecasts and scoreline matrices.
+- [ ] **Automated Value Detection & Market Edge Identification:** Compute model fair odds against market opening prices to identify statistically significant positive expected value ($+EV$) opportunities.
+- [ ] **Dynamic Bankroll Management (Kelly Criterion):** Fractional Kelly staking simulation backtested against historical opening and closing market odds.
+- [ ] **$T - 1\text{h}$ Confirmed Lineup Module:** Real-time ingestion of confirmed 60-minute lineups and starting XI ratings to adjust pre-match $\lambda$ values.
+- [ ] **Multi-League Expansion:** Port the pipeline to other major European leagues (EFL Championship, La Liga, Serie A, and Bundesliga).
+- [ ] **Live Prediction API & Web Dashboard:** Lightweight FastAPI service serving real-time weekend match forecasts and scoreline matrices.
 
 ---
 
-## 🏗️ System Architecture
+## 📁 Repository Structure
 
 ```text
-[ Raw Data Sources ]
-  ├── Historical European Soccer Archive (2008–2016)
-  └── Modern Premier League & Betting Archives (2016–2026)
-            │
-            ▼
-[ Preprocessing & Zero-Leakage Pipeline ]
-  ├── Canonical Club Harmonization & Aliases
-  ├── Pre-Match Cutoff Verification (T - 24.000h)
-  └── Rolling Form (5/10 Matches), Shots, Corners & Rest Days
-            │
-            ▼
-[ Unified Clean Dataset: 6,930 Matches x 116 Features ]
-  ├── Train Split: 2008/09 – 2023/24 (6,080 matches)
-  └── Test Split:  2024/25 – 2025/26 (760 matches)
-            │
-            ▼
-[ Core Mathematical Engine (NumPy / SciPy) ]
-  ├── Home Poisson GLM: log(λ_h) = β_0^h + X β^h  (L2 Ridge)
-  ├── Away Poisson GLM: log(λ_a) = β_0^a + X β^a  (L2 Ridge)
-  └── Dixon-Coles Bivariate Correlation Layer: τ_ρ(x, y)
-            │
-            ▼
-[ 10 x 10 Joint Probability Matrix per Match ]
-  ├── 1X2 Win / Draw / Loss Probabilities (RPS = 0.2055)
-  ├── Over / Under 2.5 Goals (Brier = 0.2486)
-  ├── Both Teams To Score (BTTS Brier = 0.2473)
-  └── Exact Score Guessing (Top-1: 11.7%, Top-3: 32.4%)
+MatchLab/
+├── 01_exploring_pl_dataset_numpy_draft.ipynb   # Working student/practitioner research notebook
+├── 01_exploring_pl_dataset_numpy.ipynb         # Reference notebook with diagnostic visual suites
+├── pl_matches_all_seasons_clean.parquet        # Unified dataset (6,930 matches x 116 clean features)
+├── requirements.txt                            # Pinned Python dependencies
+└── README.md                                   # Project documentation & methodology
 ```
 
 ---
@@ -89,41 +67,7 @@ Tested out-of-sample on **760 matches** across the 2024/25 and 2025/26 seasons:
 
 ---
 
-## 📁 Repository Structure
-
-```text
-MatchLab/
-├── data/
-│   └── processed/
-│       └── premier_league/
-│           ├── pl_matches_all_seasons_clean.parquet   # 6,930 matches x 116 clean features
-│           ├── pl_matches_all_seasons_clean.csv       # Dual CSV export
-│           └── column_names.txt                       # Catalog of all 116 audited columns
-│
-├── notebooks/
-│   ├── 01_exploring_pl_dataset_numpy_draft.ipynb      # Clean, runnable student/practitioner draft notebook
-│   └── 01_exploring_pl_dataset_numpy.ipynb            # Extended reference notebook with diagnostic plots
-│
-├── scripts/
-│   ├── train_dixon_coles_model.py                     # Headless model training & evaluation runner
-│   └── build_merged_pl_dataset.py                     # Dataset creation and data verification script
-│
-├── tests/
-│   ├── run_all_tests.py                               # Master test suite runner (16/16 passing)
-│   ├── test_leakage_safety.py                         # Adversarial temporal leakage test suite
-│   └── test_elo_integrity.py                          # Longitudinal Elo continuity tests
-│
-├── reports/
-│   ├── eda/plots/                                     # Diagnostic visualizations (loss curves, calibration, heatmaps)
-│   └── data_integration/                              # Audits, feature catalogs, and leakage validation logs
-│
-├── requirements.txt                                   # Python dependencies
-└── README.md                                          # Project documentation
-```
-
----
-
-## 🛠️ Quickstart & Setup
+## 🛠️ Quickstart
 
 ### 1. Clone the Repository
 ```bash
@@ -144,21 +88,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Run the Adversarial Test Suite
-Verify that all 16 zero-leakage constraints pass:
+### 3. Open the Notebook
 ```bash
-python tests/run_all_tests.py
-```
-
-### 4. Train the Dixon-Coles Model Headlessly
-```bash
-python scripts/train_dixon_coles_model.py
-```
-
-### 5. Open the Notebooks
-To explore the implementation step-by-step:
-```bash
-jupyter notebook notebooks/01_exploring_pl_dataset_numpy_draft.ipynb
+jupyter notebook 01_exploring_pl_dataset_numpy_draft.ipynb
 ```
 
 ---
